@@ -1,18 +1,64 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { PrismaService } from '../prisma.service';
 import { UsersService } from './users.service';
+import { UsersModule } from './users.module';
+import { ROLE } from './constants';
+import { Prisma, User } from '@prisma/client';
 
-describe('UsersService', () => {
-  let service: UsersService;
+const USERNAME = 'mvp';
+
+const NEW_USER = {
+  username: USERNAME,
+  password: 'eve',
+  role: ROLE.BUYER,
+};
+
+const ID = '1';
+
+const userRecord = {
+  id: ID,
+  username: USERNAME,
+  password: '1337',
+  role: 'BUYER',
+} as unknown as Prisma.Prisma__UserClient<User>;
+
+describe('UserService', () => {
+  let prisma: PrismaService;
+  let userService: UsersService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService],
+      providers: [UsersService, PrismaService],
+      imports: [UsersModule],
     }).compile();
 
-    service = module.get<UsersService>(UsersService);
+    userService = module.get<UsersService>(UsersService);
+    prisma = module.get<PrismaService>(PrismaService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  it('should be defined', async () => {
+    expect(userService).toBeDefined();
+  });
+
+  it('should retrieve user by username', async () => {
+    const spyUserService = jest
+      .spyOn(userService, 'findOne')
+      .mockImplementation(() => userRecord);
+    const user = await userService.findOne(USERNAME);
+
+    expect(user.username).toBe(USERNAME);
+    expect(spyUserService).toHaveBeenCalledWith(USERNAME);
+  });
+
+  it('should retrieve user by username', async () => {
+    const spy = jest
+      .spyOn(prisma.user, 'create')
+      .mockImplementation(() => userRecord);
+
+    const user = await userService.create(NEW_USER);
+
+    expect(spy).toHaveBeenCalledWith({ data: { ...NEW_USER, deposit: 0 } });
+    expect(user.username).toBe(USERNAME);
+    expect(user.id).toBe(ID);
   });
 });
