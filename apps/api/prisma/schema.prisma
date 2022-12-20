@@ -24,7 +24,7 @@ model User {
   username String    @unique
   password String
   deposit  Int
-  roles    Role[]
+  role     Role
   Product  Product[]
 }
 
