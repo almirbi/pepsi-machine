@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { User } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -44,6 +45,13 @@ export class UsersService {
     return this.prisma.user.findMany({
       take: 100,
       select: { id: true, username: true },
+    });
+  }
+
+  deposit(deposit: number, user: User) {
+    return this.prisma.user.update({
+      where: { id: user.id },
+      data: { deposit: deposit + user.deposit },
     });
   }
 }
