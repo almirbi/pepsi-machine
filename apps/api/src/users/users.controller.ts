@@ -16,13 +16,6 @@ import { SelfUserGuard } from './self-user.guard';
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
-  @UseGuards(LoggedInGuard)
-  @Get()
-  findAll() {
-    return this.usersService.findAll();
-  }
-
   @UseGuards(LoggedInGuard, SelfUserGuard)
   @Get(':id')
   @Self('id')

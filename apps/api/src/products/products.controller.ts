@@ -47,13 +47,16 @@ export class ProductsController {
 
   @Patch(':id')
   @UseGuards(LoggedInGuard)
-  update(@Body() updateProductDto: UpdateProductDto, @Req() req) {
-    return this.productsService.update(updateProductDto, req.user);
+  update(
+    @Body() updateProductDto: UpdateProductDto,
+    @Req() request: RequestWithUser,
+  ) {
+    return this.productsService.update(updateProductDto, request.user);
   }
 
   @Delete(':id')
   @UseGuards(LoggedInGuard)
-  remove(@Param('id') id: string) {
-    return this.productsService.remove(id);
+  remove(@Param('id') id: string, @Req() request: RequestWithUser) {
+    return this.productsService.remove(id, request.user);
   }
 }

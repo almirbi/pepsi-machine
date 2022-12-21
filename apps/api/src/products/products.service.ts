@@ -27,17 +27,23 @@ export class ProductsService {
   async update(updateProductDto: UpdateProductDto, user: User) {
     const currentProduct = await this.findOne(updateProductDto.id);
 
-    if (currentProduct.sellerId === user.id) {
-      return this.prisma.product.update({
-        data: updateProductDto,
-        where: { id: updateProductDto.id },
-      });
+    if (currentProduct.sellerId !== user.id) {
+      throw new HttpException(`Not your PEPSI.`, HttpStatus.UNAUTHORIZED);
     }
 
-    throw new HttpException(`Not your PEPSI.`, HttpStatus.UNAUTHORIZED);
+    return this.prisma.product.update({
+      data: updateProductDto,
+      where: { id: updateProductDto.id },
+    });
   }
 
-  remove(id: string) {
+  async remove(id: string, user: User) {
+    const currentProduct = await this.findOne(id);
+
+    if (currentProduct.sellerId !== user.id) {
+      throw new HttpException(`Not your PEPSI.`, HttpStatus.UNAUTHORIZED);
+    }
+
     return this.prisma.product.delete({
       where: { id },
     });
