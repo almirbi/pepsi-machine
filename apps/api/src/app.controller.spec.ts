@@ -8,6 +8,7 @@ import { UsersService } from './users/users.service';
 import * as httpMocks from 'node-mocks-http';
 import { Product, User } from '@prisma/client';
 import { CreateProductDto } from './products/dto/create-product.dto';
+import { HttpException } from '@nestjs/common';
 
 const newBuyer: CreateUserDto = {
   username: 'bob',
@@ -65,6 +66,9 @@ describe('AppController', () => {
     product2 = await prisma.product.create({
       data: { ...newProduct2, sellerId: seller.id },
     });
+
+    mockRequest = httpMocks.createRequest() as never as RequestWithUser;
+    mockRequest.user = buyer;
   });
 
   beforeEach(async () => {
@@ -74,8 +78,10 @@ describe('AppController', () => {
     }).compile();
 
     appController = app.get<AppController>(AppController);
-    mockRequest = httpMocks.createRequest() as never as RequestWithUser;
-    mockRequest.user = buyer;
+    const updatedUser = await prisma.user.findUnique({
+      where: { id: buyer.id },
+    });
+    mockRequest.user = updatedUser;
   });
 
   type RequestWithUser = Request & { user: User };
@@ -102,17 +108,30 @@ describe('AppController', () => {
       );
     });
 
-    it('should /buy 100', async () => {
-      const AMOUNT = 3;
-      const response = await appController.buy(
-        { productId: product1.id, amount: AMOUNT },
-        mockRequest,
-      );
+    it("/buy should throw don't have enough products", async () => {
+      const AMOUNT = 300;
+      await expect(
+        appController.buy(
+          { productId: product1.id, amount: AMOUNT },
+          mockRequest,
+        ),
+      ).rejects.toThrowError(HttpException);
+    });
 
-      expect(response.totalSpent).toBe(product1.cost * AMOUNT);
-      expect(response.product.amountAvailable).toBe(
-        product1.amountAvailable - AMOUNT,
-      );
+    it('/reset should reset deposit to 0', async () => {
+      const response = await appController.reset(mockRequest);
+
+      expect(response.deposit).toBe(0);
+    });
+
+    it('/buy should throw not enough money', async () => {
+      const AMOUNT = 10;
+      await expect(
+        appController.buy(
+          { productId: product1.id, amount: AMOUNT },
+          mockRequest,
+        ),
+      ).rejects.toThrowError(HttpException);
     });
   });
 
