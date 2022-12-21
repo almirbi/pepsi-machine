@@ -7,6 +7,11 @@ import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
+import { apiClient } from "../api";
+import FormControl from "@mui/material/FormControl";
+import { AxiosError } from "axios";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 
 enum ROLE {
   BUYER = "BUYER",
@@ -21,6 +26,9 @@ export default function Register() {
       role: ROLE;
     }>
   >();
+
+  const [error, setError] = React.useState<string[]>();
+
   return (
     <Box sx={{ width: "300px" }}>
       <Typography textAlign="center" variant="h4">
@@ -37,35 +45,66 @@ export default function Register() {
             }));
           }}
         />
-        <TextField
-          label="password"
-          onChange={(event) => {
-            setRegisterBody((current) => ({
-              ...current,
-              password: event.target.value,
-            }));
+        <FormControl>
+          <TextField
+            label="password"
+            onChange={(event) => {
+              setRegisterBody((current) => ({
+                ...current,
+                password: event.target.value,
+              }));
+            }}
+            type="password"
+          />
+        </FormControl>
+        <FormControl>
+          <InputLabel sx={{ mb: 1 }} id="role">
+            role
+          </InputLabel>
+          <Select
+            labelId="role"
+            label="role"
+            onChange={(event: SelectChangeEvent) => {
+              setRegisterBody((current) => ({
+                ...current,
+                role: event.target.value as ROLE,
+              }));
+            }}
+          >
+            <MenuItem value="BUYER">Buyer</MenuItem>
+            <MenuItem value="SELLER">Seller</MenuItem>
+          </Select>
+        </FormControl>
+        <Button
+          onClick={async () => {
+            try {
+              const newUser = await apiClient.post(
+                "/auth/register",
+                registerBody
+              );
+            } catch (e) {
+              setError(
+                (e as AxiosError<{ message: string[] }>).response?.data?.message
+              );
+            }
           }}
-          type="password"
-        />
-        <InputLabel id="role">Age</InputLabel>
-        <Select
-          labelId="role"
-          label="Age"
-          onChange={(event: SelectChangeEvent) => {
-            setRegisterBody((current) => ({
-              ...current,
-              role: event.target.value as ROLE,
-            }));
-          }}
+          variant="outlined"
         >
-          <MenuItem value="BUYER">Buyer</MenuItem>
-          <MenuItem value="SELLER">Seller</MenuItem>
-        </Select>
-
-        <Button onClick={() => {}} variant="outlined">
           Submit
         </Button>
       </Stack>
+      {error && (
+        <Stack sx={{ mt: 2, width: "100%" }} spacing={2}>
+          {error.map((message) => {
+            return (
+              <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+                {message}
+              </Alert>
+            );
+          })}
+        </Stack>
+      )}
     </Box>
   );
 }
