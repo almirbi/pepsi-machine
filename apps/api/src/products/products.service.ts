@@ -14,19 +14,25 @@ export class ProductsService {
     });
   }
 
+  // TODO pagination
   findAll() {
-    return `This action returns all products`;
+    return this.prisma.product.findMany({ take: 100 });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  findOne(id: string) {
+    return this.prisma.product.findFirst({ where: { id } });
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  update(id: string, updateProductDto: UpdateProductDto) {
+    return this.prisma.product.update({
+      data: updateProductDto,
+      where: { id },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  remove(id: string) {
+    return this.prisma.product.delete({
+      where: { id },
+    });
   }
 }

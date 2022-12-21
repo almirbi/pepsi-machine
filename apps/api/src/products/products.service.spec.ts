@@ -26,6 +26,11 @@ const productRecord = {
   sellerId: user.id,
 } as unknown as Prisma.Prisma__ProductClient<Product>;
 
+const products = [
+  { ...product, id: '2', sellerId: '1' },
+  { ...product, id: '3', sellerId: '1' },
+] as unknown as Prisma.Prisma__ProductClient<Product[]>;
+
 describe('ProductsService', () => {
   let service: ProductsService;
   let prisma: PrismaService;
@@ -49,5 +54,19 @@ describe('ProductsService', () => {
       .mockImplementation(() => productRecord);
     const newProd = await service.create(product, user);
     expect(newProd.id).toBe('1');
+  });
+
+  it('should get all products', async () => {
+    jest.spyOn(prisma.product, 'findMany').mockImplementation(() => products);
+    const allProducts = await service.findAll();
+    expect(allProducts[0].id).toBe('2');
+  });
+
+  it('should get product 3', async () => {
+    jest
+      .spyOn(prisma.product, 'findFirst')
+      .mockImplementation(() => products[1]);
+    const product2 = await service.findOne('3');
+    expect(product2.id).toBe('3');
   });
 });
