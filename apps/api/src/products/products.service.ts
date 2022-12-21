@@ -49,7 +49,7 @@ export class ProductsService {
       throw new Error('not enough money');
     }
 
-    await this.prisma.product.update({
+    const updatedProduct = await this.prisma.product.update({
       where: { id },
       data: {
         amountAvailable: product.amountAvailable - amount,
@@ -65,7 +65,7 @@ export class ProductsService {
 
     return {
       totalSpent: totalPrice,
-      product,
+      product: updatedProduct,
       change: getChangeArray(totalPrice, user.deposit),
     };
   }
