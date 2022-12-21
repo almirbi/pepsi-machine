@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -42,11 +42,14 @@ export class ProductsService {
 
     const totalPrice = product.cost * amount;
     if (product.amountAvailable < amount) {
-      throw new Error('not enough product');
+      throw new HttpException(
+        `PEPSI machine does not have ${amount} of this product. Only ${product.amountAvailable} left.`,
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     if (totalPrice > user.deposit) {
-      throw new Error('not enough money');
+      throw new HttpException('Not enough coins.', HttpStatus.BAD_REQUEST);
     }
 
     const updatedProduct = await this.prisma.product.update({
