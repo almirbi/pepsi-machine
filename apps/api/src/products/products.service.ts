@@ -24,11 +24,17 @@ export class ProductsService {
     return this.prisma.product.findFirst({ where: { id } });
   }
 
-  update(id: string, updateProductDto: UpdateProductDto) {
-    return this.prisma.product.update({
-      data: updateProductDto,
-      where: { id },
-    });
+  async update(updateProductDto: UpdateProductDto, user: User) {
+    const currentProduct = await this.findOne(updateProductDto.id);
+
+    if (currentProduct.sellerId === user.id) {
+      return this.prisma.product.update({
+        data: updateProductDto,
+        where: { id: updateProductDto.id },
+      });
+    }
+
+    throw new HttpException(`Not your PEPSI.`, HttpStatus.UNAUTHORIZED);
   }
 
   remove(id: string) {

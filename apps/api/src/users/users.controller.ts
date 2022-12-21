@@ -10,7 +10,6 @@ import {
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LoggedInGuard } from '../auth/logged-in.guard';
-import { RoleGuard } from './roles.guard';
 import { Self } from './self.decorator';
 import { SelfUserGuard } from './self-user.guard';
 
@@ -38,7 +37,7 @@ export class UsersController {
     return this.usersService.update(id, updateProductDto);
   }
 
-  @UseGuards(LoggedInGuard, RoleGuard, SelfUserGuard)
+  @UseGuards(LoggedInGuard, SelfUserGuard)
   @Self('id')
   @Delete(':id')
   remove(@Param('id') id: string) {
