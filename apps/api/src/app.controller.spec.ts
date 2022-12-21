@@ -96,7 +96,6 @@ describe('AppController', () => {
         mockRequest,
       );
 
-      console.log(response);
       expect(response.totalSpent).toBe(product2.cost * AMOUNT);
       expect(response.product.amountAvailable).toBe(
         newProduct2.amountAvailable - AMOUNT,
@@ -110,7 +109,6 @@ describe('AppController', () => {
         mockRequest,
       );
 
-      console.log(response);
       expect(response.totalSpent).toBe(product1.cost * AMOUNT);
       expect(response.product.amountAvailable).toBe(
         product1.amountAvailable - AMOUNT,
