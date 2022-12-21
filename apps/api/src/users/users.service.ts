@@ -54,4 +54,11 @@ export class UsersService {
       data: { deposit: deposit + user.deposit },
     });
   }
+
+  reset(user: User) {
+    return this.prisma.user.update({
+      where: { id: user.id },
+      data: { deposit: 0 },
+    });
+  }
 }

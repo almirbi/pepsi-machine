@@ -3,6 +3,7 @@ import { Prisma, Product, User } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductsService } from './products.service';
+import { getChangeArray } from './utils';
 
 // TODO create some sort of factory for these
 const product: CreateProductDto = {
@@ -68,5 +69,17 @@ describe('ProductsService', () => {
       .mockImplementation(() => products[1]);
     const product2 = await service.findOne('3');
     expect(product2.id).toBe('3');
+  });
+
+  it('should return change', () => {
+    const totalPrice = 341 * 2;
+    const availableAmount = 805;
+
+    const change = getChangeArray(totalPrice, availableAmount);
+    expect(change['100']).toBe(1);
+    expect(change['50']).toBe(0);
+    expect(change['20']).toBe(1);
+    expect(change['10']).toBe(0);
+    expect(change['5']).toBe(0);
   });
 });
