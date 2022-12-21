@@ -8,7 +8,10 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async findOne(username: string) {
-    return this.prisma.user.findFirst({ where: { username } });
+    const user = await this.prisma.user.findUnique({ where: { username } });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword;
   }
 
   async create(createUserDto: CreateUserDto) {
@@ -33,6 +36,9 @@ export class UsersService {
   }
 
   findAll() {
-    return this.prisma.user.findMany({ take: 100 });
+    return this.prisma.user.findMany({
+      take: 100,
+      select: { id: true, username: true },
+    });
   }
 }

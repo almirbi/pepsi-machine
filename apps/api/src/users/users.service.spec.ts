@@ -18,7 +18,6 @@ const ID = '1';
 const userRecord = {
   id: ID,
   username: USERNAME,
-  password: '1337',
   role: 'BUYER',
 } as unknown as Prisma.Prisma__UserClient<User>;
 

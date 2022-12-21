@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../prisma.service';
-import { UsersService } from '../users/users.service';
 import { UsersModule } from '../users/users.module';
 // import { ROLE } from '../users/constants';
 import { Prisma, User } from '@prisma/client';
@@ -19,12 +18,10 @@ const ID = '1';
 const userRecord = {
   id: ID,
   username: USERNAME,
-  password: '1337',
   role: 'BUYER',
 } as unknown as Prisma.Prisma__UserClient<User>;
 
 describe('AuthService', () => {
-  // let prisma: PrismaService;
   // let userService: UsersService;
   let authService: AuthService;
 
@@ -32,10 +29,11 @@ describe('AuthService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
-          provide: UsersService,
-          useValue: { findOne: jest.fn().mockReturnValue(userRecord) },
+          provide: PrismaService,
+          useValue: {
+            user: { findUnique: jest.fn().mockResolvedValue(userRecord) },
+          },
         },
-        PrismaService,
         AuthService,
       ],
       imports: [UsersModule],
