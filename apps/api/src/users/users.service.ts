@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -45,23 +44,6 @@ export class UsersService {
     return this.prisma.user.findMany({
       take: 100,
       select: { id: true, username: true },
-    });
-  }
-
-  async deposit(deposit: number, user: User) {
-    const newDeposit = deposit + user.deposit;
-    await this.prisma.user.update({
-      where: { id: user.id },
-      data: { deposit: newDeposit },
-    });
-
-    return { deposit: newDeposit };
-  }
-
-  reset(user: User) {
-    return this.prisma.user.update({
-      where: { id: user.id },
-      data: { deposit: 0 },
     });
   }
 }

@@ -22,7 +22,9 @@ export class AppController {
   @Roles(ROLE.BUYER)
   @UseGuards(RoleGuard, LoggedInGuard)
   deposit(@Body() body: DepositDto, @Req() request: RequestWithUser) {
-    return this.usersService.deposit(body.deposit, request.user);
+    return this.usersService.update(request.user.id, {
+      deposit: request.user.deposit + body.deposit,
+    });
   }
 
   @Post('/buy')
@@ -36,6 +38,8 @@ export class AppController {
   @Roles(ROLE.BUYER)
   @UseGuards(RoleGuard, LoggedInGuard)
   reset(@Req() request: RequestWithUser) {
-    return this.usersService.reset(request.user);
+    return this.usersService.update(request.user.id, {
+      deposit: 0,
+    });
   }
 }
