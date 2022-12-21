@@ -25,4 +25,14 @@ export class UsersService {
       data: updateUserDto,
     });
   }
+
+  remove(id: string) {
+    return this.prisma.user.delete({
+      where: { id },
+    });
+  }
+
+  findAll() {
+    return this.prisma.user.findMany({ take: 100 });
+  }
 }
