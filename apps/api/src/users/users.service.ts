@@ -48,11 +48,14 @@ export class UsersService {
     });
   }
 
-  deposit(deposit: number, user: User) {
-    return this.prisma.user.update({
+  async deposit(deposit: number, user: User) {
+    const newDeposit = deposit + user.deposit;
+    await this.prisma.user.update({
       where: { id: user.id },
-      data: { deposit: deposit + user.deposit },
+      data: { deposit: newDeposit },
     });
+
+    return { deposit: newDeposit };
   }
 
   reset(user: User) {

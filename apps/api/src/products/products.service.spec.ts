@@ -76,10 +76,6 @@ describe('ProductsService', () => {
     const availableAmount = 805;
 
     const change = getChangeArray(totalPrice, availableAmount);
-    expect(change['100']).toBe(1);
-    expect(change['50']).toBe(0);
-    expect(change['20']).toBe(1);
-    expect(change['10']).toBe(0);
-    expect(change['5']).toBe(0);
+    expect(change).toStrictEqual([0, 0, 1, 0, 1]);
   });
 });
