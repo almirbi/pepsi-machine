@@ -9,8 +9,10 @@
     },
     "scripts": {
         "db:generate": "prisma generate",
-        "db:push": "prisma db push --skip-generate"
+        "db:push": "prisma db push --skip-generate",
+        "build": "tsc"
     },
-    "main": "./index.ts",
-    "types": "./index.ts"
+    "main": "./dist/index.js",
+    "types": "./index.ts",
+    "type": "commonjs"
 }
