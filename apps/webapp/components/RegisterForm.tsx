@@ -7,11 +7,12 @@ import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
-import { apiClient } from "../api";
+import { apiClient } from "./api";
 import FormControl from "@mui/material/FormControl";
 import { AxiosError } from "axios";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+import { useRouter } from "next/router";
 
 enum ROLE {
   BUYER = "BUYER",
@@ -28,6 +29,7 @@ export default function Register() {
   >();
 
   const [error, setError] = React.useState<string[]>();
+  const router = useRouter();
 
   return (
     <Box sx={{ width: "300px" }}>
@@ -82,6 +84,7 @@ export default function Register() {
                 "/auth/register",
                 registerBody
               );
+              router.push("/login");
             } catch (e) {
               setError(
                 (e as AxiosError<{ message: string[] }>).response?.data?.message
@@ -97,7 +100,7 @@ export default function Register() {
         <Stack sx={{ mt: 2, width: "100%" }} spacing={2}>
           {error.map((message) => {
             return (
-              <Alert severity="error">
+              <Alert key={message} severity="error">
                 <AlertTitle>Error</AlertTitle>
                 {message}
               </Alert>
