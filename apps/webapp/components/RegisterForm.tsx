@@ -13,11 +13,7 @@ import { AxiosError } from "axios";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { useRouter } from "next/router";
-
-enum ROLE {
-  BUYER = "BUYER",
-  SELLER = "SELLER",
-}
+import { ROLE } from "../constants";
 
 export default function Register() {
   const [registerBody, setRegisterBody] = React.useState<
@@ -73,17 +69,14 @@ export default function Register() {
               }));
             }}
           >
-            <MenuItem value="BUYER">Buyer</MenuItem>
-            <MenuItem value="SELLER">Seller</MenuItem>
+            <MenuItem value={ROLE.BUYER}>Buyer</MenuItem>
+            <MenuItem value={ROLE.SELLER}>Seller</MenuItem>
           </Select>
         </FormControl>
         <Button
           onClick={async () => {
             try {
-              const newUser = await apiClient.post(
-                "/auth/register",
-                registerBody
-              );
+              await apiClient.post("/auth/register", registerBody);
               router.push("/login");
             } catch (e) {
               setError(
