@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
@@ -15,8 +15,31 @@ export class AuthService {
     return this.prisma.user.findUnique({ where: { username } });
   }
 
+  async insertSession({ user, sessionId }) {
+    return this.prisma.sessions.create({
+      data: { userId: user.id, sessionId },
+    });
+  }
+
+  async logout({ user }) {
+    return this.prisma.sessions.delete({
+      where: { userId: user.id },
+    });
+  }
+
   async validateUser(username: string, inputPassword: string): Promise<User> {
+    // TODO: can be joined into one query
     const user = await this.prisma.user.findUnique({ where: { username } });
+    const session = await this.prisma.sessions.findFirst({
+      where: { userId: user.id },
+    });
+
+    if (session) {
+      throw new HttpException(
+        `There is already an active session using your account`,
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
 
     if (user && user.password === inputPassword) {
       return user;

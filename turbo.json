@@ -17,6 +17,10 @@
       "dependsOn": ["build", "db:generate"],
       "cache": false
     },
+    "dev:debug": {
+      "dependsOn": ["build", "db:generate"],
+      "cache": false
+    },
     "db:generate": {
       "cache": false
     },
