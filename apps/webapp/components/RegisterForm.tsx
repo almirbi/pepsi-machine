@@ -62,6 +62,7 @@ export default function Register() {
           <Select
             labelId="role"
             label="role"
+            value={registerBody?.role || ""}
             onChange={(event: SelectChangeEvent) => {
               setRegisterBody((current) => ({
                 ...current,
