@@ -79,9 +79,11 @@ export default function Register() {
               await apiClient.post("/auth/register", registerBody);
               router.push("/login");
             } catch (e) {
-              setError(
-                (e as AxiosError<{ message: string[] }>).response?.data?.message
-              );
+              const messages = (e as AxiosError<{ message: string[] }>).response
+                ?.data?.message;
+              if (Array.isArray(messages)) {
+                setError(messages);
+              }
             }
           }}
           variant="outlined"
