@@ -32,13 +32,12 @@ export default function AddProductForm({ onAdd }: Props) {
       <Stack gap={4}>
         <TextField
           label="Cost"
-          value={newProduct?.cost}
+          value={newProduct?.cost ? newProduct?.cost / 100 : undefined}
           onChange={(e) => {
             setNewProduct((current) => ({
               ...current,
-              cost: parseFloat(e.target.value),
+              cost: parseFloat(e.target.value) * 100,
             }));
-            console.log(e.target.value);
           }}
           InputProps={{
             inputComponent: NumberFormatCustom as any,
@@ -56,6 +55,7 @@ export default function AddProductForm({ onAdd }: Props) {
               }));
             }}
             type="number"
+            InputProps={{ inputProps: { min: 1 } }}
           />
         </FormControl>
 

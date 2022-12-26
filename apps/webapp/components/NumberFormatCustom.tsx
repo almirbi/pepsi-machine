@@ -31,7 +31,10 @@ export const NumberFormatCustom = React.forwardRef<
       }}
       thousandSeparator
       valueIsNumericString
-      prefix="$"
+      prefix="R "
+      allowNegative={false}
+      decimalScale={2}
+      min={0.05}
     />
   );
 });
