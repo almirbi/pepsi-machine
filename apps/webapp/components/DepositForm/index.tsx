@@ -6,7 +6,7 @@ import RupeeButton from "./RupeeButton";
 import { DEPOSIT_SIZES } from "../../constants";
 import { Box, Container, LinearProgress, Snackbar, Stack } from "@mui/material";
 import { Rupee } from "../../types";
-import { UserContext } from "../../pages/_app";
+import { UserContext } from "../UserContext";
 
 type State = {
   size?: Rupee;

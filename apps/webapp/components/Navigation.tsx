@@ -12,9 +12,9 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
 import { apiClient } from "./api";
 import { useRouter } from "next/router";
-import { UserContext } from "../pages/_app";
 import { Badge } from "@mui/material";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import { UserContext } from "./UserContext";
 
 const pages = ["login", "register", "products", "deposit", "logout-all"];
 

@@ -8,9 +8,9 @@ import { apiClient } from "./api";
 import FormControl from "@mui/material/FormControl";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
-import { UserContext } from "../pages/_app";
 import { User } from "database";
 import ShowErrors from "./ShowErrors";
+import { UserContext } from "./UserContext";
 
 export default function LoginForm() {
   const [registerBody, setRegisterBody] = React.useState<Partial<User>>();
