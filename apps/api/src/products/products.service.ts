@@ -52,6 +52,13 @@ export class ProductsService {
   async buy(id: string, amount: number, user: User) {
     const product = await this.prisma.product.findUnique({ where: { id } });
 
+    if (!product) {
+      throw new HttpException(
+        `Product ${id} does not exits`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
     const totalPrice = product.cost * amount;
     if (product.amountAvailable < amount) {
       throw new HttpException(
