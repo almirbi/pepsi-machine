@@ -3,7 +3,7 @@ import { apiClient } from "./api";
 import { Product } from "database";
 import { AxiosError } from "axios";
 import ShowErrors from "./ShowErrors";
-import { List, ListItem, ListItemText } from "@mui/material";
+import { Button, List, ListItem, ListItemText, TextField } from "@mui/material";
 
 type Props = {
   products: Product[];
@@ -24,6 +24,8 @@ export default function ProductList({ products, setProducts }: Props) {
     })();
   }, [setProducts]);
 
+  const [amount, setAmount] = useState<number>(1);
+
   return (
     <div>
       <ShowErrors error={error as AxiosError} />
@@ -41,6 +43,36 @@ export default function ProductList({ products, setProducts }: Props) {
               primary={product.productName}
               secondary={`R ${product.cost / 100}`}
             />
+            <ListItemText>x {product.amountAvailable}</ListItemText>
+
+            <TextField
+              sx={{ mr: 2, width: 150 }}
+              defaultValue={amount}
+              label="amount"
+              onChange={(event) => {
+                setAmount(parseInt(event.target.value));
+              }}
+              type="number"
+              InputProps={{
+                inputProps: { min: 1, max: product.amountAvailable },
+              }}
+            />
+            <Button
+              onClick={async () => {
+                try {
+                  const { data: bought } = await apiClient.post("/buy", {
+                    productId: product.id,
+                    amount: amount,
+                  });
+                  console.log(bought);
+                } catch (e) {
+                  setError(e as AxiosError);
+                }
+              }}
+              variant="outlined"
+            >
+              Buy
+            </Button>
           </ListItem>
         ))}
       </List>
