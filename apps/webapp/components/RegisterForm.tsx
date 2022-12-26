@@ -29,7 +29,7 @@ export default function Register() {
   return (
     <Box sx={{ width: "300px" }}>
       <Typography mb={5} textAlign="center" variant="h4">
-        Register
+        register
       </Typography>
       <Stack gap={4}>
         <TextField
@@ -68,8 +68,8 @@ export default function Register() {
               }));
             }}
           >
-            <MenuItem value={ROLE.BUYER}>Buyer</MenuItem>
-            <MenuItem value={ROLE.SELLER}>Seller</MenuItem>
+            <MenuItem value={ROLE.BUYER}>buyer</MenuItem>
+            <MenuItem value={ROLE.SELLER}>seller</MenuItem>
           </Select>
         </FormControl>
         <Button
@@ -82,8 +82,9 @@ export default function Register() {
             }
           }}
           variant="outlined"
+          sx={{ textTransform: "none" }}
         >
-          Submit
+          submit
         </Button>
       </Stack>
       <ShowErrors error={error as AxiosError} />

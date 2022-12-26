@@ -24,7 +24,7 @@ export default function LogoutAll() {
   return (
     <Box sx={{ width: "300px" }}>
       <Typography mb={5} textAlign="center" variant="h4">
-        Logout All
+        logout all
       </Typography>
       <Stack gap={4}>
         <TextField
@@ -58,8 +58,9 @@ export default function LogoutAll() {
             }
           }}
           variant="outlined"
+          sx={{ textDecoration: "none", textTransform: "none" }}
         >
-          LOGOUT
+          logout
         </Button>
       </Stack>
       <ShowErrors error={error as AxiosError} />

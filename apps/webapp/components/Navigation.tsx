@@ -17,7 +17,7 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { UserContext } from "./UserContext";
 
 const pages = ["login", "register", "products", "deposit", "logout-all"];
-import { deepPurple } from "@mui/material/colors";
+import { yellow } from "@mui/material/colors";
 
 export default function Navigation() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -111,7 +111,7 @@ export default function Navigation() {
                     router.push("/login");
                   }}
                 >
-                  Logout
+                  logout
                 </NavigationButton>
 
                 <Badge
@@ -133,9 +133,10 @@ export default function Navigation() {
 }
 
 const NavigationButton = styled(Button)<ButtonProps>(({ theme }) => ({
-  color: theme.palette.getContrastText(deepPurple[500]),
-  backgroundColor: deepPurple[500],
+  color: theme.palette.getContrastText(yellow[500]),
+  backgroundColor: yellow[500],
   "&:hover": {
-    backgroundColor: deepPurple[700],
+    backgroundColor: yellow[700],
   },
+  textTransform: "none",
 }));

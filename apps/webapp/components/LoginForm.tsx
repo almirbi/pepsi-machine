@@ -21,7 +21,7 @@ export default function LoginForm() {
   return (
     <Box sx={{ width: "300px" }}>
       <Typography mb={5} textAlign="center" variant="h4">
-        Login
+        login
       </Typography>
       <Stack gap={4}>
         <TextField
@@ -60,8 +60,9 @@ export default function LoginForm() {
             }
           }}
           variant="outlined"
+          sx={{ textTransform: "none" }}
         >
-          Submit
+          submit
         </Button>
       </Stack>
       <ShowErrors error={error as AxiosError} />

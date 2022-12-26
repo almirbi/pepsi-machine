@@ -16,6 +16,10 @@ export default function App({ Component, pageProps }: AppProps) {
           body {
             margin: 0;
           }
+
+          button {
+            text-transform: none;
+          }
         `}
       />
       <ResponsiveAppBar />

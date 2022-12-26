@@ -23,12 +23,12 @@ export default function AddProductForm({ onAdd }: Props) {
   return (
     <Box sx={{ width: "300px" }}>
       <Typography mb={5} textAlign="center" variant="h4">
-        Add Product
+        add product
       </Typography>
 
       <Stack gap={4}>
         <TextField
-          label="Cost"
+          label="cost"
           value={newProduct?.cost ? newProduct?.cost / 100 : undefined}
           onChange={(e) => {
             setNewProduct((current) => ({
@@ -79,8 +79,9 @@ export default function AddProductForm({ onAdd }: Props) {
             }
           }}
           variant="outlined"
+          sx={{ textTransform: "none" }}
         >
-          Submit
+          submit
         </Button>
       </Stack>
       <ShowErrors error={error as AxiosError} />

@@ -66,7 +66,7 @@ export default function DepositForm() {
     <>
       <Stack spacing={2}>
         <Typography mb={5} textAlign="center" variant="h4">
-          Deposit Rupees
+          deposit rupees
         </Typography>
         <Stack mt={12} direction="row" justifyContent="center">
           {DEPOSIT_SIZES.map((size) => (
@@ -105,12 +105,12 @@ export default function DepositForm() {
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={snackOpen}
-        message={`Added ${state.size} rupees to your deposit`}
+        message={`added ${state.size} rupees to your deposit`}
       />
       <Snackbar
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
         open={state.isMachineReloading}
-        message={`Machine reloading.`}
+        message={`machine reloading.`}
       />
     </>
   );
