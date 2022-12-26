@@ -23,7 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
         `}
       />
       <ResponsiveAppBar />
-      <Container sx={{ mt: 5 }}>
+      <Container sx={{ mt: 5, justifyContent: "center" }}>
         <Component {...pageProps} />
       </Container>
     </UserContext.Provider>

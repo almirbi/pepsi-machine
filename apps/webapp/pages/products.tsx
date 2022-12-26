@@ -17,16 +17,16 @@ export default function Products() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Grid container spacing={2}>
-          <Grid item xs={8}>
-            <ProductList products={products} setProducts={setProducts} />
-          </Grid>
-          <Grid item xs={4}>
+        <Grid justifyContent="center" container spacing={2}>
+          <Grid padding={0} md={4} justifyContent="center" sm={12}>
             <AddProductForm
               onAdd={async () => {
                 setProducts((await apiClient.get("/products")).data);
               }}
             />
+          </Grid>
+          <Grid md={8} sm={12}>
+            <ProductList products={products} setProducts={setProducts} />
           </Grid>
         </Grid>
       </main>

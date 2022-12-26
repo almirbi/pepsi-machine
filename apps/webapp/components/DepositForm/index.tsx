@@ -71,6 +71,7 @@ export default function DepositForm() {
         <Stack mt={12} direction="row" justifyContent="center">
           {DEPOSIT_SIZES.map((size) => (
             <RupeeButton
+              key={size}
               disabled={state.isMachineReloading}
               size={size}
               onClick={async () => {

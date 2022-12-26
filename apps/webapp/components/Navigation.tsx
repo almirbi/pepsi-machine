@@ -57,15 +57,7 @@ export default function Navigation() {
             </IconButton>
             <Menu
               anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
               keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
               open={Boolean(anchorElNav)}
               onClose={() => {
                 setAnchorElNav(null);
@@ -74,11 +66,13 @@ export default function Navigation() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <Link key={page} href={`/${page}`}>
-                  {page}
-                </Link>
-              ))}
+              <Stack p={2} gap={2}>
+                {pages.map((page) => (
+                  <Link key={page} href={`/${page}`}>
+                    {page}
+                  </Link>
+                ))}
+              </Stack>
             </Menu>
           </Box>
           <Box
@@ -95,7 +89,7 @@ export default function Navigation() {
               </Link>
             ))}
           </Box>
-          <Stack direction="row" alignItems="center" gap={5}>
+          <Stack direction="row" alignItems="center" pr={5} gap={5}>
             {user && (
               <>
                 <NavigationButton

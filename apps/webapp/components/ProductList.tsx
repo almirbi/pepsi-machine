@@ -45,7 +45,7 @@ export default function ProductList({ products, setProducts }: Props) {
             <ListItemText>x {product.amountAvailable}</ListItemText>
 
             <TextField
-              sx={{ mr: 2, width: 150 }}
+              sx={{ mr: 2, width: 90 }}
               defaultValue={amount}
               label="amount"
               onChange={(event) => {
