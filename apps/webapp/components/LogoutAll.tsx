@@ -3,15 +3,12 @@ import Box from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-
 import Button from "@mui/material/Button";
 import { apiClient } from "./api";
 import FormControl from "@mui/material/FormControl";
 import { AxiosError } from "axios";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
 import { useRouter } from "next/router";
-import { getErrorsFromResponse } from "./utils";
+import ShowErrors from "./ShowErrors";
 
 export default function LogoutAll() {
   const [registerBody, setRegisterBody] = React.useState<
@@ -21,7 +18,7 @@ export default function LogoutAll() {
     }>
   >();
 
-  const [error, setError] = React.useState<string[]>();
+  const [error, setError] = React.useState<AxiosError>();
   const router = useRouter();
 
   return (
@@ -57,7 +54,7 @@ export default function LogoutAll() {
               await apiClient.post("/auth/logout/all", registerBody);
               router.push("/login");
             } catch (e) {
-              setError(getErrorsFromResponse(e as AxiosError));
+              setError(e as AxiosError);
             }
           }}
           variant="outlined"
@@ -65,18 +62,7 @@ export default function LogoutAll() {
           LOGOUT
         </Button>
       </Stack>
-      {error && (
-        <Stack sx={{ mt: 2, width: "100%" }} spacing={2}>
-          {error.map((message) => {
-            return (
-              <Alert key={message} severity="error">
-                <AlertTitle>Error</AlertTitle>
-                {message}
-              </Alert>
-            );
-          })}
-        </Stack>
-      )}
+      <ShowErrors error={error as AxiosError} />
     </Box>
   );
 }
