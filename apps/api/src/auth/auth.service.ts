@@ -21,24 +21,32 @@ export class AuthService {
     });
   }
 
-  async logout({ user }) {
-    return this.prisma.sessions.delete({
-      where: { userId: user.id },
+  async logout({ userId }) {
+    return this.prisma.sessions.deleteMany({
+      where: { userId },
     });
   }
 
-  async validateUser(username: string, inputPassword: string): Promise<User> {
+  async validateUser(
+    username: string,
+    inputPassword: string,
+    isLogout?: boolean,
+  ): Promise<User> {
+    debugger;
     // TODO: can be joined into one query
     const user = await this.prisma.user.findUnique({ where: { username } });
-    const session = await this.prisma.sessions.findFirst({
-      where: { userId: user.id },
-    });
 
-    if (session) {
-      throw new HttpException(
-        `There is already an active session using your account`,
-        HttpStatus.UNAUTHORIZED,
-      );
+    if (!isLogout) {
+      const session = await this.prisma.sessions.findFirst({
+        where: { userId: user.id },
+      });
+
+      if (session) {
+        throw new HttpException(
+          `There is already an active session using your account`,
+          HttpStatus.UNAUTHORIZED,
+        );
+      }
     }
 
     if (user && user.password === inputPassword) {

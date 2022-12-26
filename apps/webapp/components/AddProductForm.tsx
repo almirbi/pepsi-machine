@@ -10,57 +10,77 @@ import FormControl from "@mui/material/FormControl";
 import { AxiosError } from "axios";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
-import { useRouter } from "next/router";
-import { ROLE } from "../constants";
-import { getErrorsFromResponse } from "./utils";
 
-export default function LoginForm() {
-  const [registerBody, setRegisterBody] = React.useState<
-    Partial<{
-      username: string;
-      password: string;
-      role: ROLE;
-    }>
-  >();
+import { Product } from "database";
+import { NumberFormatCustom } from "./NumberFormatCustom";
+
+type Props = {
+  onAdd: () => {};
+};
+
+export default function AddProductForm({ onAdd }: Props) {
+  const [newProduct, setNewProduct] = React.useState<Partial<Product>>();
 
   const [error, setError] = React.useState<string[]>();
-  const router = useRouter();
 
   return (
     <Box sx={{ width: "300px" }}>
       <Typography textAlign="center" variant="h4">
-        Login
+        Add Product
       </Typography>
-      ;
+
       <Stack gap={4}>
         <TextField
-          label="username"
-          onChange={(event) => {
-            setRegisterBody((current) => ({
+          label="Cost"
+          value={newProduct?.cost}
+          onChange={(e) => {
+            setNewProduct((current) => ({
               ...current,
-              username: event.target.value,
+              cost: parseFloat(e.target.value),
             }));
+            console.log(e.target.value);
           }}
+          InputProps={{
+            inputComponent: NumberFormatCustom as any,
+          }}
+          variant="standard"
         />
         <FormControl>
           <TextField
-            label="password"
+            label="amount available"
+            value={newProduct?.amountAvailable}
             onChange={(event) => {
-              setRegisterBody((current) => ({
+              setNewProduct((current) => ({
                 ...current,
-                password: event.target.value,
+                amountAvailable: parseInt(event.target.value),
               }));
             }}
-            type="password"
+            type="number"
           />
         </FormControl>
+
+        <FormControl>
+          <TextField
+            label="product name"
+            onChange={(event) => {
+              setNewProduct((current) => ({
+                ...current,
+                productName: event.target.value,
+              }));
+            }}
+            type="text"
+          />
+        </FormControl>
+
         <Button
           onClick={async () => {
             try {
-              await apiClient.post("/auth/login", registerBody);
-              router.push("/products");
+              await apiClient.post("/products", newProduct);
+              onAdd();
             } catch (e) {
-              setError(getErrorsFromResponse(e as AxiosError));
+              const errorMessages = (e as AxiosError<{ message: string[] }>)
+                .response?.data?.message;
+              Array.isArray(errorMessages) && setError(errorMessages);
             }
           }}
           variant="outlined"

@@ -10,10 +10,9 @@ import Button from "@mui/material/Button";
 import { apiClient } from "./api";
 import FormControl from "@mui/material/FormControl";
 import { AxiosError } from "axios";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
 import { useRouter } from "next/router";
 import { ROLE } from "../constants";
+import ShowErrors from "./ShowErrors";
 
 export default function Register() {
   const [registerBody, setRegisterBody] = React.useState<
@@ -24,7 +23,7 @@ export default function Register() {
     }>
   >();
 
-  const [error, setError] = React.useState<string[]>();
+  const [error, setError] = React.useState<AxiosError>();
   const router = useRouter();
 
   return (
@@ -32,7 +31,6 @@ export default function Register() {
       <Typography textAlign="center" variant="h4">
         Register
       </Typography>
-      ;
       <Stack gap={4}>
         <TextField
           label="username"
@@ -80,11 +78,7 @@ export default function Register() {
               await apiClient.post("/auth/register", registerBody);
               router.push("/login");
             } catch (e) {
-              const messages = (e as AxiosError<{ message: string[] }>).response
-                ?.data?.message;
-              if (Array.isArray(messages)) {
-                setError(messages);
-              }
+              setError(e as AxiosError);
             }
           }}
           variant="outlined"
@@ -92,18 +86,7 @@ export default function Register() {
           Submit
         </Button>
       </Stack>
-      {error && (
-        <Stack sx={{ mt: 2, width: "100%" }} spacing={2}>
-          {error.map((message) => {
-            return (
-              <Alert key={message} severity="error">
-                <AlertTitle>Error</AlertTitle>
-                {message}
-              </Alert>
-            );
-          })}
-        </Stack>
-      )}
+      <ShowErrors error={error as AxiosError} />
     </Box>
   );
 }

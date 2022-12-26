@@ -33,20 +33,28 @@ export class AuthController {
   @UseGuards(LoggedInGuard)
   async logout(@Request() req) {
     await this.authService.logout({
-      user: req.user,
+      userId: req.user.id,
     });
     req.session.destroy();
     return req.session;
   }
 
   @Post('logout/all')
-  @UseGuards(LocalAuthGuard)
-  async logoutAll(@Request() req) {
-    await this.authService.logout({
-      user: req.user,
-    });
-    req.session.destroy();
-    return req.session;
+  @ApiBody({ type: LoginUserDto })
+  async logoutAll(@Body() credentials) {
+    const user = await this.authService.validateUser(
+      credentials.username,
+      credentials.password,
+      true,
+    );
+
+    if (user) {
+      await this.authService.logout({
+        userId: user.id,
+      });
+    }
+
+    return { logout: true };
   }
 
   @Post('register')

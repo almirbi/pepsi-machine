@@ -11,15 +11,13 @@ import { AxiosError } from "axios";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { useRouter } from "next/router";
-import { ROLE } from "../constants";
 import { getErrorsFromResponse } from "./utils";
 
-export default function LoginForm() {
+export default function LogoutAll() {
   const [registerBody, setRegisterBody] = React.useState<
     Partial<{
       username: string;
       password: string;
-      role: ROLE;
     }>
   >();
 
@@ -29,7 +27,7 @@ export default function LoginForm() {
   return (
     <Box sx={{ width: "300px" }}>
       <Typography textAlign="center" variant="h4">
-        Login
+        Logout All
       </Typography>
       ;
       <Stack gap={4}>
@@ -57,15 +55,15 @@ export default function LoginForm() {
         <Button
           onClick={async () => {
             try {
-              await apiClient.post("/auth/login", registerBody);
-              router.push("/products");
+              await apiClient.post("/auth/logout/all", registerBody);
+              router.push("/");
             } catch (e) {
               setError(getErrorsFromResponse(e as AxiosError));
             }
           }}
           variant="outlined"
         >
-          Submit
+          LOGOUT
         </Button>
       </Stack>
       {error && (
