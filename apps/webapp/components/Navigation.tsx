@@ -72,7 +72,9 @@ export default function Navigation() {
               }}
             >
               {pages.map((page) => (
-                <Link href={`/${page}`}>{page}</Link>
+                <Link key={page} href={`/${page}`}>
+                  {page}
+                </Link>
               ))}
               <Button variant="outlined" endIcon={<LogoutIcon />}>
                 Logout
@@ -88,7 +90,7 @@ export default function Navigation() {
             }}
           >
             {pages.map((page) => (
-              <Link href={`/${page}`}>
+              <Link key={page} href={`/${page}`}>
                 <Typography color="white">{page}</Typography>
               </Link>
             ))}
