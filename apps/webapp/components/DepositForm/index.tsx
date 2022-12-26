@@ -4,7 +4,14 @@ import { AxiosError } from "axios";
 import ShowErrors from "../ShowErrors";
 import RupeeButton from "./RupeeButton";
 import { DEPOSIT_SIZES } from "../../constants";
-import { Box, Container, LinearProgress, Snackbar, Stack } from "@mui/material";
+import {
+  Box,
+  Container,
+  LinearProgress,
+  Snackbar,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { Rupee } from "../../types";
 import { UserContext } from "../UserContext";
 
@@ -58,6 +65,9 @@ export default function DepositForm() {
   return (
     <>
       <Stack spacing={2}>
+        <Typography mb={5} textAlign="center" variant="h4">
+          Deposit Rupees
+        </Typography>
         <Stack mt={12} direction="row" justifyContent="center">
           {DEPOSIT_SIZES.map((size) => (
             <RupeeButton
