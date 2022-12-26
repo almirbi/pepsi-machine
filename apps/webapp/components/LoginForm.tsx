@@ -52,6 +52,7 @@ export default function LoginForm() {
                 "/auth/login",
                 registerBody
               );
+              debugger;
               setUser?.(currentUser);
               router.push("/products");
             } catch (e) {

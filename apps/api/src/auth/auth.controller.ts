@@ -27,7 +27,7 @@ export class AuthController {
       user: req.user,
       sessionId: req.sessionID,
     });
-    return req.session;
+    return req.user;
   }
 
   @Post('logout')
