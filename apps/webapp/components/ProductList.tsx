@@ -31,7 +31,7 @@ export default function ProductList({ products, setProducts }: Props) {
       <List
         sx={{
           width: "100%",
-          maxHeight: "calc(100vh - 200px)",
+          maxHeight: "calc(45vh)",
           overflow: "scroll",
           bgcolor: "background",
         }}
