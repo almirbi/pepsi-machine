@@ -92,6 +92,13 @@ export default function DepositForm() {
             />
           ))}
         </Stack>
+        <Box>
+          <Container sx={{ width: "60%", height: 60, mt: 4 }}>
+            {state.isMachineReloading && (
+              <LinearProgress variant="determinate" value={state.progress} />
+            )}
+          </Container>
+        </Box>
         <Box textAlign="center">
           <Button
             onClick={async () => {
@@ -108,13 +115,6 @@ export default function DepositForm() {
           >
             reset deposit to 0
           </Button>
-        </Box>
-        <Box>
-          {state.isMachineReloading && (
-            <Container sx={{ width: "60%" }}>
-              <LinearProgress variant="determinate" value={state.progress} />
-            </Container>
-          )}
         </Box>
 
         <Box>
