@@ -29,3 +29,5 @@ export default function App({ Component, pageProps }: AppProps) {
     </UserContext.Provider>
   );
 }
+
+// TODO response types
