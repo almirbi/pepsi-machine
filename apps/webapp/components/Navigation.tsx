@@ -16,7 +16,9 @@ import { Badge, Stack, styled } from "@mui/material";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { UserContext } from "./UserContext";
 
-const pages = ["login", "register", "products", "deposit", "logout-all"];
+const pagesAuthed = ["products", "deposit"];
+const pagesGuest = ["login", "register"];
+
 import { yellow } from "@mui/material/colors";
 
 export default function Navigation() {
@@ -40,6 +42,8 @@ export default function Navigation() {
       }
     })();
   }, [setUser, user]);
+
+  const pages = user ? pagesAuthed : pagesGuest;
 
   return (
     <AppBar position="static">
