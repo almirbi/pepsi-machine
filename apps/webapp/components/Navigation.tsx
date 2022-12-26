@@ -12,7 +12,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Button, { ButtonProps } from "@mui/material/Button";
 import { apiClient } from "./api";
 import { useRouter } from "next/router";
-import { Badge, styled } from "@mui/material";
+import { Badge, Stack, styled } from "@mui/material";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { UserContext } from "./UserContext";
 
@@ -43,7 +43,7 @@ export default function Navigation() {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -79,9 +79,6 @@ export default function Navigation() {
                   {page}
                 </Link>
               ))}
-              <Button variant="outlined" endIcon={<LogoutIcon />}>
-                Logout
-              </Button>
             </Menu>
           </Box>
           <Box
@@ -97,6 +94,8 @@ export default function Navigation() {
                 <Typography color="white">{page}</Typography>
               </Link>
             ))}
+          </Box>
+          <Stack direction="row" alignItems="center" gap={5}>
             {user && (
               <>
                 <NavigationButton
@@ -114,12 +113,19 @@ export default function Navigation() {
                 >
                   Logout
                 </NavigationButton>
-                <Badge badgeContent={user.deposit} max={999999}>
-                  <CurrencyRupeeIcon color="action" />
+
+                <Badge
+                  sx={{ cursor: "pointer" }}
+                  badgeContent={user.deposit}
+                  max={999999}
+                >
+                  <Link href="/deposit">
+                    <CurrencyRupeeIcon color="action" />
+                  </Link>
                 </Badge>
               </>
             )}
-          </Box>
+          </Stack>
         </Toolbar>
       </Container>
     </AppBar>
