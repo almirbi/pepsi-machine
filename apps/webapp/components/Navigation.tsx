@@ -9,14 +9,15 @@ import Container from "@mui/material/Container";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
 import LogoutIcon from "@mui/icons-material/Logout";
-import Button from "@mui/material/Button";
+import Button, { ButtonProps } from "@mui/material/Button";
 import { apiClient } from "./api";
 import { useRouter } from "next/router";
-import { Badge } from "@mui/material";
+import { Badge, styled } from "@mui/material";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { UserContext } from "./UserContext";
 
 const pages = ["login", "register", "products", "deposit", "logout-all"];
+import { deepPurple } from "@mui/material/colors";
 
 export default function Navigation() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -98,14 +99,7 @@ export default function Navigation() {
             ))}
             {user && (
               <>
-                <Button
-                  sx={{
-                    background: "white",
-                    "&:hover": {
-                      background: "white",
-                    },
-                  }}
-                  variant="outlined"
+                <NavigationButton
                   endIcon={<LogoutIcon />}
                   onClick={async () => {
                     try {
@@ -119,7 +113,7 @@ export default function Navigation() {
                   }}
                 >
                   Logout
-                </Button>
+                </NavigationButton>
                 <Badge badgeContent={user.deposit} max={999999}>
                   <CurrencyRupeeIcon color="action" />
                 </Badge>
@@ -131,3 +125,11 @@ export default function Navigation() {
     </AppBar>
   );
 }
+
+const NavigationButton = styled(Button)<ButtonProps>(({ theme }) => ({
+  color: theme.palette.getContrastText(deepPurple[500]),
+  backgroundColor: deepPurple[500],
+  "&:hover": {
+    backgroundColor: deepPurple[700],
+  },
+}));
