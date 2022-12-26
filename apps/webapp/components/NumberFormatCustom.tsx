@@ -6,8 +6,7 @@ import {
 } from "react-number-format";
 
 interface CustomProps {
-  // eslint-disable-next-line no-unused-vars
-  onChange: (event: { target: { name: string; value: string } }) => void;
+  onChange: (_event: { target: { name: string; value: string } }) => void;
   name: string;
 }
 

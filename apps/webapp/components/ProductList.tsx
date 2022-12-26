@@ -7,8 +7,7 @@ import { Button, List, ListItem, ListItemText, TextField } from "@mui/material";
 
 type Props = {
   products: Product[];
-  // eslint-disable-next-line no-unused-vars
-  setProducts: (data: Product[]) => void;
+  setProducts: (_data: Product[]) => void;
 };
 
 export default function ProductList({ products, setProducts }: Props) {

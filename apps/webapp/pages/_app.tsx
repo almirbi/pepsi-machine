@@ -6,8 +6,7 @@ import ResponsiveAppBar from "../components/Navigation";
 
 type ContextType = {
   user?: User;
-  // eslint-disable-next-line no-unused-vars
-  setUser?: (val?: User) => void;
+  setUser?: (_val?: User) => void;
 };
 
 export const UserContext = createContext<ContextType>({
