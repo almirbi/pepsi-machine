@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, Stack } from "@mui/material";
+import { Alert, AlertTitle, Link, Stack, Typography } from "@mui/material";
 import { AxiosError } from "axios";
 import { getErrorsFromResponse } from "./utils";
 
@@ -12,10 +12,25 @@ export default function ShowErrors({ error }: { error: AxiosError }) {
   return (
     <Stack sx={{ mt: 2, width: "100%" }} spacing={2}>
       {messages.map((message) => {
+        let specialCase: React.ReactNode;
+        // TODO should have a connection with error codes with the backend
+        // TODO better error handling
+        if (
+          message.includes(
+            "There is already an active session using your account"
+          )
+        ) {
+          specialCase = (
+            <Typography>
+              There is already an active session using your account. Maybe you
+              would like to <Link href="/logout-all">force log out them.</Link>
+            </Typography>
+          );
+        }
         return (
           <Alert key={message} severity="error">
             <AlertTitle>Error</AlertTitle>
-            {message}
+            {specialCase || message}
           </Alert>
         );
       })}
