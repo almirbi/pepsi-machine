@@ -1,13 +1,16 @@
-import { Grid } from "@mui/material";
+import { Box, Dialog, DialogTitle, Grid, Typography } from "@mui/material";
 import { Product } from "database";
 import Head from "next/head";
 import { useState } from "react";
 import AddProductForm from "../components/AddProductForm";
 import { apiClient } from "../components/api";
 import ProductList from "../components/ProductList";
+import { BuyResult } from "../types";
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [showResult, setShowResult] = useState(false);
+  const [buyResult, setBuyResult] = useState<BuyResult>();
   return (
     <>
       <Head>
@@ -26,9 +29,37 @@ export default function Products() {
             />
           </Grid>
           <Grid md={8} sm={12}>
-            <ProductList products={products} setProducts={setProducts} />
+            <ProductList
+              onBuy={async (buyResult: BuyResult) => {
+                setBuyResult(buyResult);
+                setShowResult(true);
+                setProducts((await apiClient.get("/products")).data);
+              }}
+              products={products}
+              setProducts={setProducts}
+            />
           </Grid>
         </Grid>
+        <Dialog open={showResult} onClose={() => setShowResult(false)}>
+          <DialogTitle>
+            you bought {buyResult?.product.productName}!
+          </DialogTitle>
+
+          {buyResult && (
+            <Box p={3}>
+              <Typography>
+                change: [
+                {buyResult.change.map((r, index) => (
+                  <span>{`${r}${
+                    index === buyResult.change.length - 1 ? "" : ", "
+                  }`}</span>
+                ))}
+                ]
+              </Typography>
+              <Typography>total spent: {buyResult.totalSpent / 100}</Typography>
+            </Box>
+          )}
+        </Dialog>
       </main>
     </>
   );

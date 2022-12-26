@@ -4,13 +4,15 @@ import { Product } from "database";
 import { AxiosError } from "axios";
 import ShowErrors from "./ShowErrors";
 import { Button, List, ListItem, ListItemText, TextField } from "@mui/material";
+import { BuyResult } from "../types";
 
 type Props = {
   products: Product[];
   setProducts: (_data: Product[]) => void;
+  onBuy: (_buyResylt: BuyResult) => void;
 };
 
-export default function ProductList({ products, setProducts }: Props) {
+export default function ProductList({ products, setProducts, onBuy }: Props) {
   const [error, setError] = useState<AxiosError>();
   useEffect(() => {
     (async () => {
@@ -63,7 +65,7 @@ export default function ProductList({ products, setProducts }: Props) {
                     productId: product.id,
                     amount: amount,
                   });
-                  console.log(bought);
+                  onBuy(bought);
                 } catch (e) {
                   setError(e as AxiosError);
                 }

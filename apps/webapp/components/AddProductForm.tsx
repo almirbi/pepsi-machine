@@ -10,6 +10,7 @@ import { AxiosError } from "axios";
 import { Product } from "database";
 import { NumberFormatCustom } from "./NumberFormatCustom";
 import ShowErrors from "./ShowErrors";
+import { BuyResult } from "../types";
 
 type Props = {
   onAdd: () => {};
@@ -72,7 +73,7 @@ export default function AddProductForm({ onAdd }: Props) {
         <Button
           onClick={async () => {
             try {
-              await apiClient.post("/products", newProduct);
+              await apiClient.post<BuyResult>("/products", newProduct);
               onAdd();
             } catch (e) {
               setError(e as AxiosError);
