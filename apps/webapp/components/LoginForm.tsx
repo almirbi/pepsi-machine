@@ -11,18 +11,12 @@ import { AxiosError } from "axios";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { useRouter } from "next/router";
-import { ROLE } from "../constants";
 import { getErrorsFromResponse } from "./utils";
 import { UserContext } from "../pages/_app";
+import { User } from "database";
 
 export default function LoginForm() {
-  const [registerBody, setRegisterBody] = React.useState<
-    Partial<{
-      username: string;
-      password: string;
-      role: ROLE;
-    }>
-  >();
+  const [registerBody, setRegisterBody] = React.useState<Partial<User>>();
 
   const [error, setError] = React.useState<string[]>();
   const router = useRouter();
