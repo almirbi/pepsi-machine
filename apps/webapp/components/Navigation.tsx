@@ -110,7 +110,7 @@ export default function Navigation() {
 
                 <Badge
                   sx={{ cursor: "pointer" }}
-                  badgeContent={user.deposit}
+                  badgeContent={user.deposit / 100}
                   max={999999}
                 >
                   <Link href="/deposit">
