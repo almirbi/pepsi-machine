@@ -43,7 +43,7 @@ export default function AddProductForm({ onAdd }: Props) {
           InputProps={{
             inputComponent: NumberFormatCustom as any,
           }}
-          variant="standard"
+          variant="outlined"
         />
         <FormControl>
           <TextField

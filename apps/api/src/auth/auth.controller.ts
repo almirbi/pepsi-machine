@@ -5,6 +5,7 @@ import {
   UseGuards,
   Body,
   UnauthorizedException,
+  Get,
 } from '@nestjs/common';
 import { ApiBody } from '@nestjs/swagger';
 
@@ -37,6 +38,12 @@ export class AuthController {
     });
     req.session.destroy();
     return req.session;
+  }
+
+  @Get('me')
+  @UseGuards(LoggedInGuard)
+  async me(@Request() req) {
+    return req.user;
   }
 
   @Post('logout/all')

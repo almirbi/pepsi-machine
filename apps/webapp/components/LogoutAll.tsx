@@ -56,7 +56,7 @@ export default function LogoutAll() {
           onClick={async () => {
             try {
               await apiClient.post("/auth/logout/all", registerBody);
-              router.push("/");
+              router.push("/login");
             } catch (e) {
               setError(getErrorsFromResponse(e as AxiosError));
             }

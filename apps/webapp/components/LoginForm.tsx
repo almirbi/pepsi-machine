@@ -13,6 +13,7 @@ import AlertTitle from "@mui/material/AlertTitle";
 import { useRouter } from "next/router";
 import { ROLE } from "../constants";
 import { getErrorsFromResponse } from "./utils";
+import { UserContext } from "../pages/_app";
 
 export default function LoginForm() {
   const [registerBody, setRegisterBody] = React.useState<
@@ -25,7 +26,7 @@ export default function LoginForm() {
 
   const [error, setError] = React.useState<string[]>();
   const router = useRouter();
-
+  const { setUser } = React.useContext(UserContext);
   return (
     <Box sx={{ width: "300px" }}>
       <Typography textAlign="center" variant="h4">
@@ -57,7 +58,11 @@ export default function LoginForm() {
         <Button
           onClick={async () => {
             try {
-              await apiClient.post("/auth/login", registerBody);
+              const { data: currentUser } = await apiClient.post(
+                "/auth/login",
+                registerBody
+              );
+              setUser?.(currentUser);
               router.push("/products");
             } catch (e) {
               setError(getErrorsFromResponse(e as AxiosError));
