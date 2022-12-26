@@ -25,7 +25,7 @@ export default function AddProductForm({ onAdd }: Props) {
 
   return (
     <Box sx={{ width: "300px" }}>
-      <Typography textAlign="center" variant="h4">
+      <Typography mb={5} textAlign="center" variant="h4">
         Add Product
       </Typography>
 

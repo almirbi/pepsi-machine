@@ -28,7 +28,7 @@ export default function Register() {
 
   return (
     <Box sx={{ width: "300px" }}>
-      <Typography textAlign="center" variant="h4">
+      <Typography mb={5} textAlign="center" variant="h4">
         Register
       </Typography>
       <Stack gap={4}>

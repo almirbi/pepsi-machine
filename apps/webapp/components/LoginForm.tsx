@@ -29,10 +29,9 @@ export default function LoginForm() {
   const { setUser } = React.useContext(UserContext);
   return (
     <Box sx={{ width: "300px" }}>
-      <Typography textAlign="center" variant="h4">
+      <Typography mb={5} textAlign="center" variant="h4">
         Login
       </Typography>
-      ;
       <Stack gap={4}>
         <TextField
           label="username"
