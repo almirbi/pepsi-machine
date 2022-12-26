@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { apiClient } from "../api";
 import { AxiosError } from "axios";
 import ShowErrors from "../ShowErrors";
@@ -6,6 +6,7 @@ import RupeeButton from "./RupeeButton";
 import { DEPOSIT_SIZES } from "../../constants";
 import { Box, Container, LinearProgress, Snackbar, Stack } from "@mui/material";
 import { Rupee } from "../../types";
+import { UserContext } from "../../pages/_app";
 
 type State = {
   size?: Rupee;
@@ -23,7 +24,7 @@ export default function DepositForm() {
   const TOTAL = 100;
   const STEP = 10;
   const SPEED = 50;
-
+  const { setUser } = useContext(UserContext);
   const startProgress = () => {
     setState((current) => ({ ...current, progress: 0 }));
 
@@ -64,7 +65,13 @@ export default function DepositForm() {
               size={size}
               onClick={async () => {
                 try {
-                  await apiClient.post("/deposit", { deposit: size });
+                  const { data: updatedUser } = await apiClient.post(
+                    "/deposit",
+                    {
+                      deposit: size,
+                    }
+                  );
+                  setUser?.(updatedUser);
                   startMachineReload(size);
                 } catch (e) {
                   setError(e as AxiosError);

@@ -13,6 +13,8 @@ import Button from "@mui/material/Button";
 import { apiClient } from "./api";
 import { useRouter } from "next/router";
 import { UserContext } from "../pages/_app";
+import { Badge } from "@mui/material";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
 const pages = ["login", "register", "products", "deposit", "logout-all"];
 
@@ -95,28 +97,33 @@ export default function Navigation() {
               </Link>
             ))}
             {user && (
-              <Button
-                sx={{
-                  background: "white",
-                  "&:hover": {
+              <>
+                <Button
+                  sx={{
                     background: "white",
-                  },
-                }}
-                variant="outlined"
-                endIcon={<LogoutIcon />}
-                onClick={async () => {
-                  try {
-                    await apiClient.post("/auth/logout");
-                    setUser?.(undefined);
-                  } catch (e) {
-                    console.log(e);
-                  }
+                    "&:hover": {
+                      background: "white",
+                    },
+                  }}
+                  variant="outlined"
+                  endIcon={<LogoutIcon />}
+                  onClick={async () => {
+                    try {
+                      await apiClient.post("/auth/logout");
+                      setUser?.(undefined);
+                    } catch (e) {
+                      console.log(e);
+                    }
 
-                  router.push("/login");
-                }}
-              >
-                Logout
-              </Button>
+                    router.push("/login");
+                  }}
+                >
+                  Logout
+                </Button>
+                <Badge badgeContent={user.deposit} max={999999}>
+                  <CurrencyRupeeIcon color="action" />
+                </Badge>
+              </>
             )}
           </Box>
         </Toolbar>

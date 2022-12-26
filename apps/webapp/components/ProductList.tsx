@@ -39,7 +39,7 @@ export default function ProductList({ products, setProducts }: Props) {
           <ListItem key={product.id}>
             <ListItemText
               primary={product.productName}
-              secondary={`$ ${product.cost / 100}`}
+              secondary={`R ${product.cost / 100}`}
             />
           </ListItem>
         ))}
