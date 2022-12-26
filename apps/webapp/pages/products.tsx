@@ -1,7 +1,13 @@
+import { Grid } from "@mui/material";
+import { Product } from "database";
 import Head from "next/head";
+import { useState } from "react";
+import AddProductForm from "../components/AddProductForm";
+import { apiClient } from "../components/api";
 import ProductList from "../components/ProductList";
 
 export default function Products() {
+  const [products, setProducts] = useState<Product[]>([]);
   return (
     <>
       <Head>
@@ -11,7 +17,18 @@ export default function Products() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <ProductList />
+        <Grid container spacing={2}>
+          <Grid item xs={8}>
+            <ProductList products={products} setProducts={setProducts} />
+          </Grid>
+          <Grid item xs={4}>
+            <AddProductForm
+              onAdd={async () => {
+                setProducts((await apiClient.get("/products")).data);
+              }}
+            />
+          </Grid>
+        </Grid>
       </main>
     </>
   );
