@@ -6,6 +6,7 @@ import RupeeButton from "./RupeeButton";
 import { DEPOSIT_SIZES } from "../../constants";
 import {
   Box,
+  Button,
   Container,
   LinearProgress,
   Snackbar,
@@ -91,6 +92,23 @@ export default function DepositForm() {
             />
           ))}
         </Stack>
+        <Box textAlign="center">
+          <Button
+            onClick={async () => {
+              try {
+                await apiClient.post("/reset");
+                const user = await apiClient.get("/auth/me");
+                setUser?.(user.data);
+              } catch (e) {
+                setError(e as AxiosError);
+              }
+            }}
+            variant="outlined"
+            sx={{ textTransform: "none" }}
+          >
+            reset deposit to 0
+          </Button>
+        </Box>
         <Box>
           {state.isMachineReloading && (
             <Container sx={{ width: "60%" }}>
