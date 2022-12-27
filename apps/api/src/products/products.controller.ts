@@ -16,6 +16,7 @@ import { User } from '@prisma/client';
 import { LoggedInGuard } from '../auth/logged-in.guard';
 import { Roles } from 'src/users/roles.decorator';
 import { ROLE } from 'src/users/constants';
+import { RoleGuard } from 'src/users/roles.guard';
 
 type RequestWithUser = Request & { user: User };
 
@@ -24,7 +25,7 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Post()
-  @UseGuards(LoggedInGuard)
+  @UseGuards(LoggedInGuard, RoleGuard)
   @Roles(ROLE.SELLER)
   create(
     @Body() createProductDto: CreateProductDto,
