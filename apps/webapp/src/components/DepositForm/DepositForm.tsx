@@ -33,6 +33,8 @@ const TOTAL = 100;
 const STEP = 10;
 const SPEED = 50;
 
+const audio = new Audio("win.mp3");
+
 export const DepositForm = () => {
   const [error, setError] = useState<AxiosError>();
 
@@ -93,9 +95,8 @@ export const DepositForm = () => {
 
         <Stack mt={12} direction="row" justifyContent="center">
           {DEPOSIT_SIZES.map((size) => (
-            <Badge badgeContent={size / 100} color="secondary">
+            <Badge key={size} badgeContent={size / 100} color="secondary">
               <RupeeButton
-                key={size}
                 disabled={state.isMachineReloading}
                 size={size}
                 onClick={async () => {
@@ -108,6 +109,8 @@ export const DepositForm = () => {
                     );
                     setUser?.(updatedUser);
                     startMachineReload(size);
+
+                    audio.play();
                   } catch (e) {
                     setError(e as AxiosError);
                   }
