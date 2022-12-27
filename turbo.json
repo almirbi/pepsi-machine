@@ -9,6 +9,9 @@
     "lint": {
       "outputs": []
     },
+    "lint:fix": {
+      "outputs": []
+    },
     "build:db": {
       "outputs": ["dist/**"],
       "cache": false

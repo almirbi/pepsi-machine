@@ -11,6 +11,7 @@
     "dev": "turbo run dev --parallel",
     "dev:debug": "turbo run dev:debug --parallel",
     "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
