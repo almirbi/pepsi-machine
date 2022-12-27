@@ -28,11 +28,7 @@ export default function RupeeButton({ size, onClick, disabled }: Props) {
     <IconButton disabled={disabled} size="large" onClick={onClick}>
       <Image
         width={50}
-        src={
-          disabled
-            ? disabledRupee
-            : RUPEES_IMAGE_MAP[size.toString() as keyof typeof RUPEES_IMAGE_MAP]
-        }
+        src={disabled ? disabledRupee : RUPEES_IMAGE_MAP[size]}
         alt={`ruppe ${size}`}
       />
     </IconButton>

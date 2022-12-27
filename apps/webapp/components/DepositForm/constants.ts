@@ -10,4 +10,4 @@ export const RUPEES_IMAGE_MAP = {
   "20": red20,
   "50": purple50,
   "100": silver100,
-};
+} as const;
