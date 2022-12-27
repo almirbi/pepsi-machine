@@ -17,7 +17,7 @@ const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [showResult, setShowResult] = useState(false);
   const [buyResult, setBuyResult] = useState<BuyResult>();
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   return (
     <>
@@ -41,15 +41,18 @@ const Products = () => {
             </Grid>
           )}
           <Grid item width="100%" md={8} sm={12}>
-            <ProductList
-              onBuy={async (buyResult: BuyResult) => {
-                setBuyResult(buyResult);
-                setShowResult(true);
-                setProducts((await apiClient.get("/products")).data);
-              }}
-              products={products}
-              setProducts={setProducts}
-            />
+            <Box display="flex" width="100%" justifyContent="center">
+              <ProductList
+                onBuy={async (buyResult: BuyResult) => {
+                  setBuyResult(buyResult);
+                  setShowResult(true);
+                  setProducts((await apiClient.get("/products")).data);
+                  setUser?.((await apiClient.get("/auth/me")).data);
+                }}
+                products={products}
+                setProducts={setProducts}
+              />
+            </Box>
           </Grid>
         </Grid>
         <Dialog open={showResult} onClose={() => setShowResult(false)}>
