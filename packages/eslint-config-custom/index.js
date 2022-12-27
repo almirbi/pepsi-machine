@@ -1,8 +1,6 @@
 module.exports = {
-  extends: ["turbo", "prettier"],
+  extends: ["turbo", "prettier", "plugin:import/recommended"],
   rules: {
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error",
+    "import/no-duplicates": ["error", { considerQueryString: true }],
   },
-  plugins: ["simple-import-sort"],
 };
