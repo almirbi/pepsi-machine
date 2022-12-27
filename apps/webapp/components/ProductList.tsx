@@ -60,8 +60,13 @@ export default function ProductList({ products, setProducts, onBuy }: Props) {
                         ({product.amountAvailable})
                       </Typography>
                     </Typography>
-                    <Typography fontWeight="700" color="secondary">
-                      <CurrencyRupeeIcon />
+                    <Typography
+                      fontSize={25}
+                      fontWeight="700"
+                      color="secondary"
+                      display="flex"
+                    >
+                      <CurrencyRupeeIcon fontSize="large" />
                       {`${product.cost / 100}`}
                     </Typography>
                   </>
