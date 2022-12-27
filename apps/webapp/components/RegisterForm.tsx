@@ -13,6 +13,7 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { ROLE } from "../constants";
 import ShowErrors from "./ShowErrors";
+import { UserContext } from "./UserContext";
 
 export default function Register() {
   const [registerBody, setRegisterBody] = React.useState<
@@ -25,6 +26,11 @@ export default function Register() {
 
   const [error, setError] = React.useState<AxiosError>();
   const router = useRouter();
+  const { user } = React.useContext(UserContext);
+
+  if (user) {
+    return null;
+  }
 
   return (
     <Box sx={{ width: "300px" }}>

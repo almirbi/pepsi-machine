@@ -3,7 +3,14 @@ import { apiClient } from "./api";
 import { Product } from "database";
 import { AxiosError } from "axios";
 import ShowErrors from "./ShowErrors";
-import { Button, List, ListItem, ListItemText, TextField } from "@mui/material";
+import {
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { BuyResult } from "../types";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
@@ -44,12 +51,16 @@ export default function ProductList({ products, setProducts, onBuy }: Props) {
           <ListItem key={product.id}>
             <ListItemText
               sx={{ width: { md: "300px", xs: "80px" } }}
-              primary={product.productName}
+              primary={
+                <Typography fontSize={20}>{product.productName}</Typography>
+              }
               secondary={
                 <>
                   <ListItemText>
-                    <CurrencyRupeeIcon />
-                    {`${product.cost / 100}`}
+                    <Typography fontWeight="700" color="secondary">
+                      <CurrencyRupeeIcon />
+                      {`${product.cost / 100}`}
+                    </Typography>
                   </ListItemText>
                   <ListItemText>
                     Stock: x {product.amountAvailable}
@@ -85,9 +96,11 @@ export default function ProductList({ products, setProducts, onBuy }: Props) {
                   setError(e as AxiosError);
                 }
               }}
-              variant="outlined"
+              variant="contained"
+              color="secondary"
+              size="large"
             >
-              Buy
+              buy
             </Button>
           </ListItem>
         ))}

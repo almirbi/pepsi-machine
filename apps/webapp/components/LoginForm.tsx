@@ -17,7 +17,12 @@ export default function LoginForm() {
 
   const [error, setError] = React.useState<AxiosError>();
   const router = useRouter();
-  const { setUser } = React.useContext(UserContext);
+  const { user, setUser } = React.useContext(UserContext);
+
+  if (user) {
+    return null;
+  }
+
   return (
     <Box sx={{ width: "300px" }}>
       <Typography mb={5} textAlign="center" variant="h4">
