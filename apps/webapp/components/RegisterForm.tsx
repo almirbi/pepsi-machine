@@ -1,10 +1,15 @@
-import { Button, InputLabel, MenuItem } from "@mui/material";
-import { Box } from "@mui/material";
-import { FormControl } from "@mui/material";
-import { Stack } from "@mui/material";
-import { TextField } from "@mui/material";
-import { Typography } from "@mui/material";
-import { Select, SelectChangeEvent } from "@mui/material";
+import {
+  Button,
+  InputLabel,
+  MenuItem,
+  Box,
+  FormControl,
+  Stack,
+  TextField,
+  Typography,
+  Select,
+} from "@mui/material";
+import type { SelectChangeEvent } from "@mui/material";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import * as React from "react";

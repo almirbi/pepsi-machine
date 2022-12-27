@@ -1,14 +1,17 @@
-import { Logout as LogoutIcon } from "@mui/icons-material";
-import { Menu as MenuIcon } from "@mui/icons-material";
-import { Stack, styled } from "@mui/material";
-import { AppBar } from "@mui/material";
-import { Box } from "@mui/material";
-import { Button, ButtonProps } from "@mui/material";
-import { Container } from "@mui/material";
-import { IconButton } from "@mui/material";
-import { Menu } from "@mui/material";
-import { Toolbar } from "@mui/material";
-import { Typography } from "@mui/material";
+import { Logout as LogoutIcon, Menu as MenuIcon } from "@mui/icons-material";
+import {
+  Stack,
+  styled,
+  AppBar,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Menu,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import type { ButtonProps } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";

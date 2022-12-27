@@ -1,9 +1,6 @@
 import * as React from "react";
-import {
-  InputAttributes,
-  NumericFormat,
-  NumericFormatProps,
-} from "react-number-format";
+import { NumericFormat } from "react-number-format";
+import type { InputAttributes, NumericFormatProps } from "react-number-format";
 
 interface CustomProps {
   onChange: (_event: { target: { name: string; value: string } }) => void;
