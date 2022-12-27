@@ -1,9 +1,10 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { PrismaService } from "../prisma.service";
-import { UsersService } from "./users.service";
-import { UsersModule } from "./users.module";
-import { ROLE } from "./constants";
 import { Prisma, User } from "@prisma/client";
+
+import { PrismaService } from "../prisma.service";
+import { ROLE } from "./constants";
+import { UsersModule } from "./users.module";
+import { UsersService } from "./users.service";
 
 const USERNAME = "mvp";
 

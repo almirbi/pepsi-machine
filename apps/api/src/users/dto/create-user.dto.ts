@@ -6,11 +6,12 @@ import {
   MinLength,
   Validate,
 } from "class-validator";
-import { ROLE } from "../constants";
 import {
   PasswordValidation,
   PasswordValidationRequirement,
 } from "class-validator-password-check";
+
+import { ROLE } from "../constants";
 
 const passwordRequirement: PasswordValidationRequirement = {
   mustContainLowerLetter: true,

@@ -1,18 +1,18 @@
 import {
-  Controller,
-  Request,
-  Post,
-  UseGuards,
   Body,
-  UnauthorizedException,
+  Controller,
   Get,
+  Post,
+  Request,
+  UnauthorizedException,
+  UseGuards,
 } from "@nestjs/common";
 import { ApiBody } from "@nestjs/swagger";
 
-import { AuthService } from "./auth.service";
-import { LocalAuthGuard } from "./local-auth.guard";
 import { CreateUserDto } from "../users/dto/create-user.dto";
 import { LoginUserDto } from "../users/dto/login-user.dto";
+import { AuthService } from "./auth.service";
+import { LocalAuthGuard } from "./local-auth.guard";
 import { LoggedInGuard } from "./logged-in.guard";
 
 @Controller("auth")

@@ -1,22 +1,23 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
   Req,
   UseGuards,
 } from "@nestjs/common";
-import { ProductsService } from "./products.service";
+import { User } from "@prisma/client";
+import { ROLE } from "src/users/constants";
+import { Roles } from "src/users/roles.decorator";
+import { RoleGuard } from "src/users/roles.guard";
+
+import { LoggedInGuard } from "../auth/logged-in.guard";
 import { CreateProductDto } from "./dto/create-product.dto";
 import { UpdateProductDto } from "./dto/update-product.dto";
-import { User } from "@prisma/client";
-import { LoggedInGuard } from "../auth/logged-in.guard";
-import { Roles } from "src/users/roles.decorator";
-import { ROLE } from "src/users/constants";
-import { RoleGuard } from "src/users/roles.guard";
+import { ProductsService } from "./products.service";
 
 type RequestWithUser = Request & { user: User };
 

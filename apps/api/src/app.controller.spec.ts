@@ -1,14 +1,15 @@
+import { HttpException } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
+import { Product, User } from "@prisma/client";
+import * as httpMocks from "node-mocks-http";
+
 import { AppController } from "./app.controller";
 import { PrismaService } from "./prisma.service";
+import { CreateProductDto } from "./products/dto/create-product.dto";
 import { ProductsService } from "./products/products.service";
 import { ROLE } from "./users/constants";
 import { CreateUserDto } from "./users/dto/create-user.dto";
 import { UsersService } from "./users/users.service";
-import * as httpMocks from "node-mocks-http";
-import { Product, User } from "@prisma/client";
-import { CreateProductDto } from "./products/dto/create-product.dto";
-import { HttpException } from "@nestjs/common";
 
 const newBuyer: CreateUserDto = {
   username: "bob",

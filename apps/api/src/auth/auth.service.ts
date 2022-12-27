@@ -1,9 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import * as bcrypt from "bcrypt";
 import { memoryStore } from "src/memory-store";
+
 import { PrismaService } from "../prisma.service";
 import { CreateUserDto } from "../users/dto/create-user.dto";
 import { UsersService } from "../users/users.service";
-import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class AuthService {
