@@ -12,14 +12,14 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Button, { ButtonProps } from "@mui/material/Button";
 import { apiClient } from "./api";
 import { useRouter } from "next/router";
-import { Badge, Stack, styled } from "@mui/material";
-import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import { Stack, styled } from "@mui/material";
 import { UserContext } from "./UserContext";
 
 const pagesAuthed = ["products", "deposit"];
 const pagesGuest = ["login", "register"];
 
 import { yellow } from "@mui/material/colors";
+import Deposit from "./DepositForm/Deposit";
 
 export default function Navigation() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -60,6 +60,7 @@ export default function Navigation() {
               <MenuIcon />
             </IconButton>
             <Menu
+              disableScrollLock
               anchorEl={anchorElNav}
               keepMounted
               open={Boolean(anchorElNav)}
@@ -72,9 +73,11 @@ export default function Navigation() {
             >
               <Stack p={2} gap={2}>
                 {pages.map((page) => (
-                  <Link key={page} href={`/${page}`}>
-                    {page}
-                  </Link>
+                  <Typography p={3} fontSize={25}>
+                    <Link key={page} href={`/${page}`}>
+                      {page}
+                    </Link>
+                  </Typography>
                 ))}
               </Stack>
             </Menu>
@@ -93,9 +96,22 @@ export default function Navigation() {
               </Link>
             ))}
           </Box>
-          <Stack direction="row" alignItems="center" pr={5} gap={5}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            pr={{ xs: 2, md: 4 }}
+            gap={{ xs: 2, md: 4 }}
+          >
             {user && (
               <>
+                <Deposit
+                  sx={{
+                    borderColor: yellow[500],
+                    color: yellow[500],
+                    background: "transparent",
+                  }}
+                  amount={user.deposit / 100}
+                />
                 <NavigationButton
                   endIcon={<LogoutIcon />}
                   onClick={async () => {
@@ -111,16 +127,6 @@ export default function Navigation() {
                 >
                   logout
                 </NavigationButton>
-
-                <Badge
-                  sx={{ cursor: "pointer" }}
-                  badgeContent={user.deposit / 100}
-                  max={999999}
-                >
-                  <Link href="/deposit">
-                    <CurrencyRupeeIcon color="action" />
-                  </Link>
-                </Badge>
               </>
             )}
           </Stack>

@@ -8,7 +8,6 @@ import {
   Badge,
   Box,
   Button,
-  Chip,
   Container,
   LinearProgress,
   Snackbar,
@@ -17,7 +16,7 @@ import {
 } from "@mui/material";
 import { Rupee } from "../../types";
 import { UserContext } from "../UserContext";
-import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import Deposit from "./Deposit";
 
 type State = {
   size?: Rupee;
@@ -26,15 +25,16 @@ type State = {
   progressInterval?: NodeJS.Timer;
 };
 
+const TOTAL = 100;
+const STEP = 10;
+const SPEED = 50;
+
 export default function DepositForm() {
   const [error, setError] = useState<AxiosError>();
 
   const [state, setState] = useState<State>({ progress: 0 });
   const [snackOpen, setSnackOpen] = useState(false);
 
-  const TOTAL = 100;
-  const STEP = 10;
-  const SPEED = 50;
   const { setUser } = useContext(UserContext);
   const startProgress = () => {
     setState((current) => ({ ...current, progress: 0 }));
@@ -84,17 +84,7 @@ export default function DepositForm() {
           <Typography mb={5} textAlign="center" variant="h4" marginBottom={0}>
             deposit rupees
           </Typography>
-          <Chip
-            color="secondary"
-            variant="outlined"
-            sx={{ ml: 2, width: 100 }}
-            label={
-              <Box display="flex" alignItems="center">
-                <Typography>{user.deposit / 100}</Typography>
-                <CurrencyRupeeIcon />
-              </Box>
-            }
-          />
+          <Deposit amount={user.deposit / 100} />
         </Stack>
 
         <Stack mt={12} direction="row" justifyContent="center">
