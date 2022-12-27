@@ -7,6 +7,7 @@ import {
   Snackbar,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { AxiosError } from "axios";
 import { useContext, useEffect, useState } from "react";
@@ -76,6 +77,8 @@ export const DepositForm = () => {
     startProgress();
   };
 
+  const matches = useMediaQuery("(min-width:400px)");
+
   const { user } = useContext(UserContext);
 
   if (!user) {
@@ -103,6 +106,7 @@ export const DepositForm = () => {
               <RupeeButton
                 disabled={state.isMachineReloading}
                 size={size}
+                width={matches ? 50 : 40}
                 onClick={async () => {
                   try {
                     const { data: updatedUser } = await apiClient.post(

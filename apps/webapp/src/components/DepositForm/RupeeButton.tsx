@@ -10,13 +10,14 @@ type Props = {
   size: Rupee;
   onClick: () => void;
   disabled?: boolean;
+  width?: number;
 };
 
-export const RupeeButton = ({ size, onClick, disabled }: Props) => {
+export const RupeeButton = ({ size, onClick, disabled, width = 50 }: Props) => {
   return (
     <IconButton disabled={disabled} size="large" onClick={onClick}>
       <Image
-        width={50}
+        width={width}
         src={disabled ? disabledRupee : RUPEES_IMAGE_MAP[size]}
         alt={`ruppe ${size}`}
       />
