@@ -1,6 +1,7 @@
 import Head from "next/head";
 
 import { LoginForm } from "@components";
+import { Box } from "@mui/material";
 
 const Login = () => {
   return (
@@ -11,7 +12,9 @@ const Login = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <LoginForm />
+        <Box display="flex" width="100%" justifyContent="center">
+          <LoginForm />
+        </Box>
       </main>
     </>
   );
