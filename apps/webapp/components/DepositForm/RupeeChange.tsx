@@ -1,6 +1,7 @@
-import RupeeIcon from "./RupeeIcon";
-import { DEPOSIT_SIZES } from "../../constants";
 import { Stack } from "@mui/material";
+
+import { DEPOSIT_SIZES } from "../../constants";
+import RupeeIcon from "./RupeeIcon";
 
 type Props = {
   change: number[];

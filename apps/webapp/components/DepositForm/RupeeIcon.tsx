@@ -1,9 +1,10 @@
+import { Badge } from "@mui/material";
+import { AxiosError } from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { AxiosError } from "axios";
+
 import { Rupee } from "../../types";
 import { RUPEES_IMAGE_MAP } from "./constants";
-import { Badge } from "@mui/material";
 
 type Props = {
   size: Rupee;

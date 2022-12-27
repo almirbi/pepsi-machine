@@ -1,8 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { apiClient } from "./api";
-import { Product } from "database";
-import { AxiosError } from "axios";
-import ShowErrors from "./ShowErrors";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import {
   Button,
   List,
@@ -11,10 +7,15 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { BuyResult } from "../types";
-import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
-import { UserContext } from "./UserContext";
+import { AxiosError } from "axios";
+import { Product } from "database";
+import { useContext, useEffect, useState } from "react";
+
 import { ROLE } from "../constants";
+import { BuyResult } from "../types";
+import { apiClient } from "./api";
+import ShowErrors from "./ShowErrors";
+import { UserContext } from "./UserContext";
 
 type Props = {
   products: Product[];

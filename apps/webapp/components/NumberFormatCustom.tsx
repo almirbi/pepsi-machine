@@ -1,8 +1,8 @@
 import * as React from "react";
 import {
+  InputAttributes,
   NumericFormat,
   NumericFormatProps,
-  InputAttributes,
 } from "react-number-format";
 
 interface CustomProps {

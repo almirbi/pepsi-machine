@@ -1,4 +1,5 @@
 import Head from "next/head";
+
 import DepositForm from "../components/DepositForm";
 
 export default function Deposit() {

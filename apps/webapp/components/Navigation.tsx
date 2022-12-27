@@ -1,24 +1,26 @@
-import * as React from "react";
+import LogoutIcon from "@mui/icons-material/Logout";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Stack, styled } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import Container from "@mui/material/Container";
-import MenuIcon from "@mui/icons-material/Menu";
-import Link from "next/link";
-import LogoutIcon from "@mui/icons-material/Logout";
 import Button, { ButtonProps } from "@mui/material/Button";
-import { apiClient } from "./api";
+import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { Stack, styled } from "@mui/material";
+import * as React from "react";
+
+import { apiClient } from "./api";
 import { UserContext } from "./UserContext";
 
 const pagesAuthed = ["products", "deposit"];
 const pagesGuest = ["login", "register"];
 
 import { yellow } from "@mui/material/colors";
+
 import Deposit from "./DepositForm/Deposit";
 
 export default function Navigation() {

@@ -1,10 +1,11 @@
+import { css,Global } from "@emotion/react";
 import { Container } from "@mui/material";
 import { User } from "database";
 import type { AppProps } from "next/app";
 import { useMemo, useState } from "react";
+
 import ResponsiveAppBar from "../components/Navigation";
 import { UserContext } from "../components/UserContext";
-import { Global, css } from "@emotion/react";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState<User>();

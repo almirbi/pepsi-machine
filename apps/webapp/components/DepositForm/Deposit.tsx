@@ -1,5 +1,5 @@
-import { Box, Chip, SxProps, Theme, Typography } from "@mui/material";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import { Box, Chip, SxProps, Theme, Typography } from "@mui/material";
 
 type Props = { amount: number; sx?: SxProps<Theme> };
 

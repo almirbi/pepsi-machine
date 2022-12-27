@@ -1,9 +1,3 @@
-import { useContext, useState } from "react";
-import { apiClient } from "../api";
-import { AxiosError } from "axios";
-import ShowErrors from "../ShowErrors";
-import RupeeButton from "./RupeeButton";
-import { DEPOSIT_SIZES } from "../../constants";
 import {
   Badge,
   Box,
@@ -14,9 +8,16 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { AxiosError } from "axios";
+import { useContext, useState } from "react";
+
+import { DEPOSIT_SIZES } from "../../constants";
 import { Rupee } from "../../types";
+import { apiClient } from "../api";
+import ShowErrors from "../ShowErrors";
 import { UserContext } from "../UserContext";
 import Deposit from "./Deposit";
+import RupeeButton from "./RupeeButton";
 
 type State = {
   size?: Rupee;
