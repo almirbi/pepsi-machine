@@ -69,7 +69,7 @@ export class ProductsService {
     }
 
     if (totalPrice > user.deposit) {
-      throw new HttpException("Not enough coins.", HttpStatus.BAD_REQUEST);
+      throw new HttpException("Not enough rupees.", HttpStatus.BAD_REQUEST);
     }
 
     const updatedProduct = await this.prisma.product.update({
