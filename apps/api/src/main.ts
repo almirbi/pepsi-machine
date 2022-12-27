@@ -5,6 +5,7 @@ import * as session from 'express-session';
 import { loginSecret } from './auth/constants';
 import * as passport from 'passport';
 import { ValidationPipe } from '@nestjs/common';
+import { memoryStore } from './memory-store';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,17 +13,22 @@ async function bootstrap() {
     origin: true,
     credentials: true,
   });
+
   app.use(
     session({
       secret: loginSecret,
       resave: false,
       saveUninitialized: false,
+      unset: 'destroy',
+      store: memoryStore,
       // cookie: { TODO
       //   secure: app.get('env') === 'production',
       // },
     }),
   );
+
   app.use(passport.initialize());
+  // todo check this
   app.use(passport.session());
   app.useGlobalPipes(new ValidationPipe());
 

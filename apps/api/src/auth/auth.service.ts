@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
+import { memoryStore } from 'src/memory-store';
 import { PrismaService } from '../prisma.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { UsersService } from '../users/users.service';
@@ -22,6 +23,14 @@ export class AuthService {
   }
 
   async logout({ userId }) {
+    const sessions = await this.prisma.sessions.findMany({
+      where: { userId },
+    });
+
+    for (let i = 0; i < sessions.length; i++) {
+      memoryStore.destroy(sessions[i].sessionId);
+    }
+
     return this.prisma.sessions.deleteMany({
       where: { userId },
     });
