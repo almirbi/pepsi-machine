@@ -1,8 +1,9 @@
 import Head from "next/head";
 
-import RegisterForm from "../src/components/RegisterForm";
+import { RegisterForm } from "@components";
+import { Box } from "@mui/material";
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       <Head>
@@ -12,8 +13,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <RegisterForm />
+        <Box display="flex" width="100%" justifyContent="center">
+          <RegisterForm />
+        </Box>
       </main>
     </>
   );
-}
+};
+
+export default Home;

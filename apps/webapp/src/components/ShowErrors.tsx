@@ -1,9 +1,9 @@
 import { Alert, AlertTitle, Link, Stack, Typography } from "@mui/material";
 import { AxiosError } from "axios";
 
-import { getErrorsFromResponse } from "../utils";
+import { getErrorsFromResponse } from "@utils";
 
-export default function ShowErrors({ error }: { error: AxiosError }) {
+export const ShowErrors = ({ error }: { error: AxiosError }) => {
   const messages = getErrorsFromResponse(error);
 
   if (!messages || messages?.length === 0) {
@@ -37,4 +37,4 @@ export default function ShowErrors({ error }: { error: AxiosError }) {
       })}
     </Stack>
   );
-}
+};

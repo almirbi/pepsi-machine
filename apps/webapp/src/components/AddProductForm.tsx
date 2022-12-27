@@ -10,16 +10,15 @@ import { AxiosError } from "axios";
 import { Product } from "database";
 import * as React from "react";
 
-import { BuyResult } from "../../types";
-import { apiClient } from "../utils/api";
-import { NumberFormatCustom } from "./NumberFormatCustom";
-import ShowErrors from "./ShowErrors";
+import { BuyResult } from "@types";
+import { apiClient } from "@api";
+import { NumberFormatCustom, ShowErrors } from "@components";
 
 type Props = {
   onAdd: () => {};
 };
 
-export default function AddProductForm({ onAdd }: Props) {
+export const AddProductForm = ({ onAdd }: Props) => {
   const [newProduct, setNewProduct] = React.useState<Partial<Product>>();
 
   const [error, setError] = React.useState<AxiosError>();
@@ -91,4 +90,4 @@ export default function AddProductForm({ onAdd }: Props) {
       <ShowErrors error={error as AxiosError} />
     </Box>
   );
-}
+};

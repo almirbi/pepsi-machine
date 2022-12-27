@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import { Rupee } from "../../../types";
+import { Rupee } from "@types";
 import { RUPEES_IMAGE_MAP } from "./constants";
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
   count?: number;
 };
 
-export default function RupeeIcon({ size, width = 20, count }: Props) {
+export const RupeeIcon = ({ size, width = 20, count }: Props) => {
   const [, setError] = useState<AxiosError>();
   useEffect(() => {
     (async () => {
@@ -36,4 +36,4 @@ export default function RupeeIcon({ size, width = 20, count }: Props) {
       <Image width={width} src={RUPEES_IMAGE_MAP[size]} alt={`ruppe ${size}`} />
     </Badge>
   );
-}
+};

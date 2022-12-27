@@ -1,8 +1,8 @@
 import Head from "next/head";
 
-import DepositForm from "../src/components/DepositForm";
+import { DepositForm } from "@components";
 
-export default function Deposit() {
+const Deposit = () => {
   return (
     <>
       <Head>
@@ -16,4 +16,6 @@ export default function Deposit() {
       </main>
     </>
   );
-}
+};
+
+export default Deposit;

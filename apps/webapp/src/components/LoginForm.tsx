@@ -11,11 +11,10 @@ import { User } from "database";
 import { useRouter } from "next/router";
 import * as React from "react";
 
-import { apiClient } from "../utils/api";
-import ShowErrors from "./ShowErrors";
-import { UserContext } from "./UserContext";
+import { apiClient } from "@api";
+import { ShowErrors, UserContext } from "@components";
 
-export default function LoginForm() {
+export const LoginForm = () => {
   const [registerBody, setRegisterBody] = React.useState<Partial<User>>();
 
   const [error, setError] = React.useState<AxiosError>();
@@ -27,7 +26,7 @@ export default function LoginForm() {
   }
 
   return (
-    <Box sx={{ width: "300px" }}>
+    <Box component="form" sx={{ width: "300px" }}>
       <Typography mb={5} textAlign="center" variant="h4">
         login
       </Typography>
@@ -76,4 +75,4 @@ export default function LoginForm() {
       <ShowErrors error={error as AxiosError} />
     </Box>
   );
-}
+};

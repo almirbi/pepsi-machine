@@ -16,17 +16,15 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";
 
-import { apiClient } from "../utils/api";
-import { UserContext } from "./UserContext";
+import { apiClient } from "@api";
+import { UserContext, DepositMeter } from "@components";
+
+import { yellow } from "@mui/material/colors";
 
 const pagesAuthed = ["products", "deposit"];
 const pagesGuest = ["login", "register"];
 
-import { yellow } from "@mui/material/colors";
-
-import Deposit from "./DepositForm/Deposit";
-
-export default function Navigation() {
+export const Navigation = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -78,10 +76,8 @@ export default function Navigation() {
             >
               <Stack p={2} gap={2}>
                 {pages.map((page) => (
-                  <Typography p={3} fontSize={25}>
-                    <Link key={page} href={`/${page}`}>
-                      {page}
-                    </Link>
+                  <Typography key={page} p={3} fontSize={25}>
+                    <Link href={`/${page}`}>{page}</Link>
                   </Typography>
                 ))}
               </Stack>
@@ -109,7 +105,7 @@ export default function Navigation() {
           >
             {user && (
               <>
-                <Deposit
+                <DepositMeter
                   sx={{
                     borderColor: yellow[500],
                     color: yellow[500],
@@ -139,7 +135,7 @@ export default function Navigation() {
       </Container>
     </AppBar>
   );
-}
+};
 
 const NavigationButton = styled(Button)<ButtonProps>(({ theme }) => ({
   color: theme.palette.getContrastText(yellow[500]),

@@ -11,11 +11,10 @@ import { AxiosError } from "axios";
 import { Product } from "database";
 import { useContext, useEffect, useState } from "react";
 
-import { ROLE } from "../../constants";
-import { BuyResult } from "../../types";
-import { apiClient } from "../utils/api";
-import ShowErrors from "./ShowErrors";
-import { UserContext } from "./UserContext";
+import { ROLE } from "@constants";
+import { BuyResult } from "@types";
+import { apiClient } from "@api";
+import { ShowErrors, UserContext } from "@components";
 
 type Props = {
   products: Product[];
@@ -23,7 +22,7 @@ type Props = {
   onBuy: (_buyResylt: BuyResult) => void;
 };
 
-export default function ProductList({ products, setProducts, onBuy }: Props) {
+export const ProductList = ({ products, setProducts, onBuy }: Props) => {
   const [error, setError] = useState<AxiosError>();
   useEffect(() => {
     (async () => {
@@ -130,4 +129,4 @@ export default function ProductList({ products, setProducts, onBuy }: Props) {
       </List>
     </div>
   );
-}
+};

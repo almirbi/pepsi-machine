@@ -14,12 +14,11 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import * as React from "react";
 
-import { ROLE } from "../../constants";
-import { apiClient } from "../utils/api";
-import ShowErrors from "./ShowErrors";
-import { UserContext } from "./UserContext";
+import { ROLE } from "@constants";
+import { apiClient } from "@api";
+import { ShowErrors, UserContext } from "@components";
 
-export default function Register() {
+export const RegisterForm = () => {
   const [registerBody, setRegisterBody] = React.useState<
     Partial<{
       username: string;
@@ -100,4 +99,4 @@ export default function Register() {
       <ShowErrors error={error as AxiosError} />
     </Box>
   );
-}
+};

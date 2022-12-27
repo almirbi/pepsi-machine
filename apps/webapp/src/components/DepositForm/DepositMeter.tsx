@@ -4,7 +4,7 @@ import type { SxProps, Theme } from "@mui/material";
 
 type Props = { amount: number; sx?: SxProps<Theme> };
 
-export default function Deposit({ amount, sx }: Props) {
+export const DepositMeter = ({ amount, sx }: Props) => {
   return (
     <Chip
       variant="outlined"
@@ -18,4 +18,4 @@ export default function Deposit({ amount, sx }: Props) {
       }
     />
   );
-}
+};

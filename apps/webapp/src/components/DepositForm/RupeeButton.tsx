@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import { Rupee } from "../../../types";
+import { Rupee } from "@types";
 import { RUPEES_IMAGE_MAP } from "./constants";
 import disabledRupee from "./disabled.png";
 
@@ -13,7 +13,7 @@ type Props = {
   disabled?: boolean;
 };
 
-export default function RupeeButton({ size, onClick, disabled }: Props) {
+export const RupeeButton = ({ size, onClick, disabled }: Props) => {
   const [, setError] = useState<AxiosError>();
   useEffect(() => {
     (async () => {
@@ -34,4 +34,4 @@ export default function RupeeButton({ size, onClick, disabled }: Props) {
       />
     </IconButton>
   );
-}
+};

@@ -1,8 +1,9 @@
 import Head from "next/head";
 
-import LoginForm from "../src/components/LoginForm";
+import { LoginForm } from "@components";
+import { Box } from "@mui/material";
 
-export default function Login() {
+const Login = () => {
   return (
     <>
       <Head>
@@ -12,8 +13,12 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <LoginForm />
+        <Box display="flex" width="100%" justifyContent="center">
+          <LoginForm />
+        </Box>
       </main>
     </>
   );
-}
+};
+
+export default Login;

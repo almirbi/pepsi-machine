@@ -3,15 +3,17 @@ import { Product } from "database";
 import Head from "next/head";
 import { useContext, useState } from "react";
 
-import AddProductForm from "../src/components/AddProductForm";
-import { apiClient } from "../src/utils/api";
-import RupeeChange from "../src/components/DepositForm/RupeeChange";
-import ProductList from "../src/components/ProductList";
-import { UserContext } from "../src/components/UserContext";
-import { ROLE } from "../constants";
-import { BuyResult } from "../types";
+import {
+  AddProductForm,
+  RupeeChange,
+  ProductList,
+  UserContext,
+} from "@components";
+import { apiClient } from "@api";
+import { ROLE } from "@constants";
+import { BuyResult } from "@types";
 
-export default function Products() {
+const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [showResult, setShowResult] = useState(false);
   const [buyResult, setBuyResult] = useState<BuyResult>();
@@ -65,4 +67,6 @@ export default function Products() {
       </main>
     </>
   );
-}
+};
+
+export default Products;

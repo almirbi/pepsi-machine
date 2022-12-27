@@ -4,10 +4,9 @@ import { User } from "database";
 import type { AppProps } from "next/app";
 import { useMemo, useState } from "react";
 
-import ResponsiveAppBar from "../src/components/Navigation";
-import { UserContext } from "../src/components/UserContext";
+import { Navigation, UserContext } from "@components";
 
-export default function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   const [user, setUser] = useState<User>();
   const value = useMemo(() => ({ user, setUser }), [user]);
   return (
@@ -23,10 +22,12 @@ export default function App({ Component, pageProps }: AppProps) {
           }
         `}
       />
-      <ResponsiveAppBar />
-      <Container sx={{ mt: 5, justifyContent: "center" }}>
+      <Navigation />
+      <Container sx={{ mt: 5 }}>
         <Component {...pageProps} />
       </Container>
     </UserContext.Provider>
   );
-}
+};
+
+export default App;

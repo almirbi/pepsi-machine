@@ -10,10 +10,10 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import * as React from "react";
 
-import { apiClient } from "../utils/api";
-import ShowErrors from "./ShowErrors";
+import { apiClient } from "@api";
+import { ShowErrors } from "@components";
 
-export default function LogoutAll() {
+export const LogoutAll = () => {
   const [registerBody, setRegisterBody] = React.useState<
     Partial<{
       username: string;
@@ -69,4 +69,4 @@ export default function LogoutAll() {
       <ShowErrors error={error as AxiosError} />
     </Box>
   );
-}
+};

@@ -1,8 +1,9 @@
 import Head from "next/head";
 
-import LogoutAll from "../src/components/LogoutAll";
+import { LogoutAll as LogoutAllForm } from "@components";
+import { Box } from "@mui/material";
 
-export default function Login() {
+const LogoutAll = () => {
   return (
     <>
       <Head>
@@ -12,8 +13,12 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <LogoutAll />
+        <Box display="flex" width="100%" justifyContent="center">
+          <LogoutAllForm />
+        </Box>
       </main>
     </>
   );
-}
+};
+
+export default LogoutAll;

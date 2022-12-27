@@ -1,13 +1,13 @@
 import { Stack } from "@mui/material";
 
-import { DEPOSIT_SIZES } from "../../../constants";
-import RupeeIcon from "./RupeeIcon";
+import { DEPOSIT_SIZES } from "@constants";
+import { RupeeIcon } from "@components";
 
 type Props = {
   change: number[];
 };
 
-export default function RupeeChange({ change }: Props) {
+export const RupeeChange = ({ change }: Props) => {
   return (
     <Stack
       direction="row"
@@ -21,4 +21,4 @@ export default function RupeeChange({ change }: Props) {
       })}
     </Stack>
   );
-}
+};

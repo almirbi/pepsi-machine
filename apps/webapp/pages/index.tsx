@@ -1,8 +1,8 @@
 import Head from "next/head";
 
-import LoginForm from "../src/components/LoginForm";
+import { LoginForm } from "@components";
 
-export default function Login() {
+const Login = () => {
   return (
     <>
       <Head>
@@ -15,4 +15,6 @@ export default function Login() {
       </main>
     </>
   );
-}
+};
+
+export default Login;

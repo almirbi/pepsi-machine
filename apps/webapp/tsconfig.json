@@ -15,8 +15,11 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@components/*": ["./src/components/*"],
-      "@components": ["./src/components"]
+      "@components": ["./src/components"],
+      "@api": ["./src/utils/api"],
+      "@utils": ["./src/utils"],
+      "@constants": ["./src/constants"],
+      "@types": ["./src/types.d.ts"]
     },
     "baseUrl": "."
   },
