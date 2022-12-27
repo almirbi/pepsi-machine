@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-import LogoutAll from "../components/LogoutAll";
+import LogoutAll from "../src/components/LogoutAll";
 
 export default function Login() {
   return (

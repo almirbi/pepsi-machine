@@ -1,36 +1,26 @@
 import {
   Button,
-  InputLabel,
-  MenuItem,
   Box,
   FormControl,
   Stack,
   TextField,
   Typography,
-  Select,
 } from "@mui/material";
-import type { SelectChangeEvent } from "@mui/material";
 import { AxiosError } from "axios";
+import { User } from "database";
 import { useRouter } from "next/router";
 import * as React from "react";
 
-import { ROLE } from "../constants";
-import { apiClient } from "./api";
+import { apiClient } from "../utils/api";
 import ShowErrors from "./ShowErrors";
 import { UserContext } from "./UserContext";
 
-export default function Register() {
-  const [registerBody, setRegisterBody] = React.useState<
-    Partial<{
-      username: string;
-      password: string;
-      role: ROLE;
-    }>
-  >();
+export default function LoginForm() {
+  const [registerBody, setRegisterBody] = React.useState<Partial<User>>();
 
   const [error, setError] = React.useState<AxiosError>();
   const router = useRouter();
-  const { user } = React.useContext(UserContext);
+  const { user, setUser } = React.useContext(UserContext);
 
   if (user) {
     return null;
@@ -39,7 +29,7 @@ export default function Register() {
   return (
     <Box sx={{ width: "300px" }}>
       <Typography mb={5} textAlign="center" variant="h4">
-        register
+        login
       </Typography>
       <Stack gap={4}>
         <TextField
@@ -63,30 +53,16 @@ export default function Register() {
             type="password"
           />
         </FormControl>
-        <FormControl>
-          <InputLabel sx={{ mb: 1 }} id="role">
-            role
-          </InputLabel>
-          <Select
-            labelId="role"
-            label="role"
-            value={registerBody?.role || ""}
-            onChange={(event: SelectChangeEvent) => {
-              setRegisterBody((current) => ({
-                ...current,
-                role: event.target.value as ROLE,
-              }));
-            }}
-          >
-            <MenuItem value={ROLE.BUYER}>buyer</MenuItem>
-            <MenuItem value={ROLE.SELLER}>seller</MenuItem>
-          </Select>
-        </FormControl>
         <Button
           onClick={async () => {
             try {
-              await apiClient.post("/auth/register", registerBody);
-              router.push("/login");
+              const { data: currentUser } = await apiClient.post(
+                "/auth/login",
+                registerBody
+              );
+
+              setUser?.(currentUser);
+              router.push("/products");
             } catch (e) {
               setError(e as AxiosError);
             }

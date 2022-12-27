@@ -16,7 +16,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";
 
-import { apiClient } from "./api";
+import { apiClient } from "../utils/api";
 import { UserContext } from "./UserContext";
 
 const pagesAuthed = ["products", "deposit"];

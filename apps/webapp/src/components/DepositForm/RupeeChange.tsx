@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
 
-import { DEPOSIT_SIZES } from "../../constants";
+import { DEPOSIT_SIZES } from "../../../constants";
 import RupeeIcon from "./RupeeIcon";
 
 type Props = {

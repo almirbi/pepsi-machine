@@ -1,28 +1,33 @@
-import { Button , Box , FormControl , Stack , TextField , Typography } from "@mui/material";
+import {
+  Button,
+  Box,
+  FormControl,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { AxiosError } from "axios";
-import { User } from "database";
 import { useRouter } from "next/router";
 import * as React from "react";
 
-import { apiClient } from "./api";
+import { apiClient } from "../utils/api";
 import ShowErrors from "./ShowErrors";
-import { UserContext } from "./UserContext";
 
-export default function LoginForm() {
-  const [registerBody, setRegisterBody] = React.useState<Partial<User>>();
+export default function LogoutAll() {
+  const [registerBody, setRegisterBody] = React.useState<
+    Partial<{
+      username: string;
+      password: string;
+    }>
+  >();
 
   const [error, setError] = React.useState<AxiosError>();
   const router = useRouter();
-  const { user, setUser } = React.useContext(UserContext);
-
-  if (user) {
-    return null;
-  }
 
   return (
     <Box sx={{ width: "300px" }}>
       <Typography mb={5} textAlign="center" variant="h4">
-        login
+        logout all
       </Typography>
       <Stack gap={4}>
         <TextField
@@ -49,21 +54,16 @@ export default function LoginForm() {
         <Button
           onClick={async () => {
             try {
-              const { data: currentUser } = await apiClient.post(
-                "/auth/login",
-                registerBody
-              );
-
-              setUser?.(currentUser);
-              router.push("/products");
+              await apiClient.post("/auth/logout/all", registerBody);
+              router.push("/login");
             } catch (e) {
               setError(e as AxiosError);
             }
           }}
           variant="outlined"
-          sx={{ textTransform: "none" }}
+          sx={{ textDecoration: "none", textTransform: "none" }}
         >
-          submit
+          logout
         </Button>
       </Stack>
       <ShowErrors error={error as AxiosError} />

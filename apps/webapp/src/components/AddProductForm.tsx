@@ -10,8 +10,8 @@ import { AxiosError } from "axios";
 import { Product } from "database";
 import * as React from "react";
 
-import { BuyResult } from "../types";
-import { apiClient } from "./api";
+import { BuyResult } from "../../types";
+import { apiClient } from "../utils/api";
 import { NumberFormatCustom } from "./NumberFormatCustom";
 import ShowErrors from "./ShowErrors";
 

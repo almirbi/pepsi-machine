@@ -1,26 +1,45 @@
-import { Button , Box , FormControl , Stack , TextField , Typography } from "@mui/material";
+import {
+  Button,
+  InputLabel,
+  MenuItem,
+  Box,
+  FormControl,
+  Stack,
+  TextField,
+  Typography,
+  Select,
+} from "@mui/material";
+import type { SelectChangeEvent } from "@mui/material";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import * as React from "react";
 
-import { apiClient } from "./api";
+import { ROLE } from "../../constants";
+import { apiClient } from "../utils/api";
 import ShowErrors from "./ShowErrors";
+import { UserContext } from "./UserContext";
 
-export default function LogoutAll() {
+export default function Register() {
   const [registerBody, setRegisterBody] = React.useState<
     Partial<{
       username: string;
       password: string;
+      role: ROLE;
     }>
   >();
 
   const [error, setError] = React.useState<AxiosError>();
   const router = useRouter();
+  const { user } = React.useContext(UserContext);
+
+  if (user) {
+    return null;
+  }
 
   return (
     <Box sx={{ width: "300px" }}>
       <Typography mb={5} textAlign="center" variant="h4">
-        logout all
+        register
       </Typography>
       <Stack gap={4}>
         <TextField
@@ -44,19 +63,38 @@ export default function LogoutAll() {
             type="password"
           />
         </FormControl>
+        <FormControl>
+          <InputLabel sx={{ mb: 1 }} id="role">
+            role
+          </InputLabel>
+          <Select
+            labelId="role"
+            label="role"
+            value={registerBody?.role || ""}
+            onChange={(event: SelectChangeEvent) => {
+              setRegisterBody((current) => ({
+                ...current,
+                role: event.target.value as ROLE,
+              }));
+            }}
+          >
+            <MenuItem value={ROLE.BUYER}>buyer</MenuItem>
+            <MenuItem value={ROLE.SELLER}>seller</MenuItem>
+          </Select>
+        </FormControl>
         <Button
           onClick={async () => {
             try {
-              await apiClient.post("/auth/logout/all", registerBody);
+              await apiClient.post("/auth/register", registerBody);
               router.push("/login");
             } catch (e) {
               setError(e as AxiosError);
             }
           }}
           variant="outlined"
-          sx={{ textDecoration: "none", textTransform: "none" }}
+          sx={{ textTransform: "none" }}
         >
-          logout
+          submit
         </Button>
       </Stack>
       <ShowErrors error={error as AxiosError} />

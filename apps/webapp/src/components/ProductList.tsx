@@ -11,9 +11,9 @@ import { AxiosError } from "axios";
 import { Product } from "database";
 import { useContext, useEffect, useState } from "react";
 
-import { ROLE } from "../constants";
-import { BuyResult } from "../types";
-import { apiClient } from "./api";
+import { ROLE } from "../../constants";
+import { BuyResult } from "../../types";
+import { apiClient } from "../utils/api";
 import ShowErrors from "./ShowErrors";
 import { UserContext } from "./UserContext";
 

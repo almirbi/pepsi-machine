@@ -11,9 +11,9 @@ import {
 import { AxiosError } from "axios";
 import { useContext, useState } from "react";
 
-import { DEPOSIT_SIZES } from "../../constants";
-import { Rupee } from "../../types";
-import { apiClient } from "../api";
+import { DEPOSIT_SIZES } from "../../../constants";
+import { Rupee } from "../../../types";
+import { apiClient } from "../../utils/api";
 import ShowErrors from "../ShowErrors";
 import { UserContext } from "../UserContext";
 import Deposit from "./Deposit";

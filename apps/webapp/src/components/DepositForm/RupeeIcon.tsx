@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import { Rupee } from "../../types";
+import { Rupee } from "../../../types";
 import { RUPEES_IMAGE_MAP } from "./constants";
 
 type Props = {

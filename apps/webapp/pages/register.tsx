@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-import RegisterForm from "../components/RegisterForm";
+import RegisterForm from "../src/components/RegisterForm";
 
 export default function Home() {
   return (

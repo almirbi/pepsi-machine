@@ -3,11 +3,11 @@ import { Product } from "database";
 import Head from "next/head";
 import { useContext, useState } from "react";
 
-import AddProductForm from "../components/AddProductForm";
-import { apiClient } from "../components/api";
-import RupeeChange from "../components/DepositForm/RupeeChange";
-import ProductList from "../components/ProductList";
-import { UserContext } from "../components/UserContext";
+import AddProductForm from "../src/components/AddProductForm";
+import { apiClient } from "../src/utils/api";
+import RupeeChange from "../src/components/DepositForm/RupeeChange";
+import ProductList from "../src/components/ProductList";
+import { UserContext } from "../src/components/UserContext";
 import { ROLE } from "../constants";
 import { BuyResult } from "../types";
 
