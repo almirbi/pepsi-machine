@@ -47,63 +47,64 @@ export default function ProductList({ products, setProducts, onBuy }: Props) {
           bgcolor: "background",
         }}
       >
-        {products?.map((product) => (
-          <ListItem key={product.id}>
-            <ListItemText
-              sx={{ width: { md: "300px", xs: "80px" } }}
-              primary={
-                <Typography fontSize={20}>{product.productName}</Typography>
-              }
-              secondary={
-                <>
-                  <ListItemText>
+        {products?.map((product) =>
+          product.amountAvailable > 0 ? (
+            <ListItem key={product.id}>
+              <ListItemText
+                sx={{ width: { md: "300px", xs: "80px" } }}
+                primary={
+                  <>
+                    <Typography fontSize={20}>
+                      {product.productName}
+                      <Typography ml={1} fontSize={15} component="span">
+                        ({product.amountAvailable})
+                      </Typography>
+                    </Typography>
                     <Typography fontWeight="700" color="secondary">
                       <CurrencyRupeeIcon />
                       {`${product.cost / 100}`}
                     </Typography>
-                  </ListItemText>
-                  <ListItemText>
-                    Stock: x {product.amountAvailable}
-                  </ListItemText>
-                </>
-              }
-            />
-
-            <TextField
-              sx={{ mr: 2, width: { xs: 60, md: 90 } }}
-              defaultValue={amount}
-              label="amount"
-              onChange={(event) => {
-                setAmount(parseInt(event.target.value));
-              }}
-              type="number"
-              InputProps={{
-                inputProps: {
-                  min: product.amountAvailable > 0 ? 1 : 0,
-                  max: product.amountAvailable,
-                },
-              }}
-            />
-            <Button
-              onClick={async () => {
-                try {
-                  const { data: bought } = await apiClient.post("/buy", {
-                    productId: product.id,
-                    amount: amount,
-                  });
-                  onBuy(bought);
-                } catch (e) {
-                  setError(e as AxiosError);
+                  </>
                 }
-              }}
-              variant="contained"
-              color="secondary"
-              size="large"
-            >
-              buy
-            </Button>
-          </ListItem>
-        ))}
+                secondary={<span></span>}
+              />
+
+              <TextField
+                sx={{ mr: 2, width: { xs: 60, md: 90 } }}
+                defaultValue={amount}
+                label="amount"
+                onChange={(event) => {
+                  setAmount(parseInt(event.target.value));
+                }}
+                type="number"
+                InputProps={{
+                  inputProps: {
+                    min: product.amountAvailable > 0 ? 1 : 0,
+                    max: product.amountAvailable,
+                  },
+                }}
+              />
+              <Button
+                onClick={async () => {
+                  try {
+                    const { data: bought } = await apiClient.post("/buy", {
+                      productId: product.id,
+                      amount: amount,
+                    });
+                    onBuy(bought);
+                  } catch (e) {
+                    setError(e as AxiosError);
+                  }
+                }}
+                variant="contained"
+                color="secondary"
+                size="large"
+              >
+                buy
+              </Button>
+            </ListItem>
+          ) : null
+        )}
       </List>
     </div>
   );
