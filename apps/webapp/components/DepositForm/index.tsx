@@ -18,6 +18,7 @@ import {
 import { Rupee } from "../../types";
 import { UserContext } from "../UserContext";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import { yellow } from "@mui/material/colors";
 
 type State = {
   size?: Rupee;
@@ -85,10 +86,12 @@ export default function DepositForm() {
             deposit rupees
           </Typography>
           <Chip
+            color="secondary"
+            variant="outlined"
             sx={{ ml: 2, width: 100 }}
             label={
               <Box display="flex" alignItems="center">
-                {user.deposit / 100}
+                <Typography color={yellow}>{user.deposit / 100}</Typography>
                 <CurrencyRupeeIcon />
               </Box>
             }
