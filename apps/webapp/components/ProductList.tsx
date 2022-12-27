@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { apiClient } from "./api";
 import { Product } from "database";
 import { AxiosError } from "axios";
@@ -13,6 +13,8 @@ import {
 } from "@mui/material";
 import { BuyResult } from "../types";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import { UserContext } from "./UserContext";
+import { ROLE } from "../constants";
 
 type Props = {
   products: Product[];
@@ -34,6 +36,16 @@ export default function ProductList({ products, setProducts, onBuy }: Props) {
   }, [setProducts]);
 
   const [amount, setAmount] = useState<number>(1);
+
+  const { user } = useContext(UserContext);
+
+  if (!user) {
+    return null;
+  }
+
+  if (products.length === 0) {
+    return <Typography>There are currently no products.</Typography>;
+  }
 
   return (
     <div>
@@ -74,39 +86,43 @@ export default function ProductList({ products, setProducts, onBuy }: Props) {
                 secondary={<span></span>}
               />
 
-              <TextField
-                sx={{ mr: 2, width: { xs: 60, md: 90 } }}
-                defaultValue={amount}
-                label="amount"
-                onChange={(event) => {
-                  setAmount(parseInt(event.target.value));
-                }}
-                type="number"
-                InputProps={{
-                  inputProps: {
-                    min: product.amountAvailable > 0 ? 1 : 0,
-                    max: product.amountAvailable,
-                  },
-                }}
-              />
-              <Button
-                onClick={async () => {
-                  try {
-                    const { data: bought } = await apiClient.post("/buy", {
-                      productId: product.id,
-                      amount: amount,
-                    });
-                    onBuy(bought);
-                  } catch (e) {
-                    setError(e as AxiosError);
-                  }
-                }}
-                variant="contained"
-                color="secondary"
-                size="large"
-              >
-                buy
-              </Button>
+              {user?.role === ROLE.BUYER && (
+                <>
+                  <TextField
+                    sx={{ mr: 2, width: { xs: 60, md: 90 } }}
+                    defaultValue={amount}
+                    label="amount"
+                    onChange={(event) => {
+                      setAmount(parseInt(event.target.value));
+                    }}
+                    type="number"
+                    InputProps={{
+                      inputProps: {
+                        min: product.amountAvailable > 0 ? 1 : 0,
+                        max: product.amountAvailable,
+                      },
+                    }}
+                  />
+                  <Button
+                    onClick={async () => {
+                      try {
+                        const { data: bought } = await apiClient.post("/buy", {
+                          productId: product.id,
+                          amount: amount,
+                        });
+                        onBuy(bought);
+                      } catch (e) {
+                        setError(e as AxiosError);
+                      }
+                    }}
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                  >
+                    buy
+                  </Button>
+                </>
+              )}
             </ListItem>
           ) : null
         )}

@@ -67,6 +67,7 @@ export class AuthController {
   @Post('register')
   async register(@Body() createUserDto: CreateUserDto) {
     const user = await this.authService.findByUsername(createUserDto.username);
+
     if (!user) {
       return this.authService.register(createUserDto);
     } else {

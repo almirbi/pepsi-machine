@@ -1,9 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
 import { memoryStore } from 'src/memory-store';
 import { PrismaService } from '../prisma.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { UsersService } from '../users/users.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -12,8 +12,15 @@ export class AuthService {
     private prisma: PrismaService,
   ) {}
 
-  async findByUsername(username: string): Promise<User> {
-    return this.prisma.user.findUnique({ where: { username } });
+  async findByUsername(username: string) {
+    const user = await this.prisma.user.findUnique({ where: { username } });
+
+    if (user) {
+      const { password: _pass, ...userNoPass } = user;
+      return userNoPass;
+    }
+
+    return null;
   }
 
   async insertSession({ user, sessionId }) {
@@ -40,9 +47,22 @@ export class AuthService {
     username: string,
     inputPassword: string,
     isLogout?: boolean,
-  ): Promise<User> {
+  ) {
     // TODO: can be joined into one query
     const user = await this.prisma.user.findUnique({ where: { username } });
+
+    if (!user) {
+      throw new HttpException(`Wrong credentials`, HttpStatus.UNAUTHORIZED);
+    }
+
+    const isPasswordMatching = await bcrypt.compare(
+      inputPassword,
+      user.password,
+    );
+
+    if (!isPasswordMatching) {
+      throw new HttpException(`Wrong credentials`, HttpStatus.UNAUTHORIZED);
+    }
 
     if (!isLogout) {
       const session = await this.prisma.sessions.findFirst({
@@ -57,19 +77,21 @@ export class AuthService {
       }
     }
 
-    if (user && user.password === inputPassword) {
-      return user;
-    }
-    return null;
+    const { password: _pass, ...userNoPass } = user;
+    return userNoPass;
   }
 
-  async register({ username, password, role }: CreateUserDto): Promise<User> {
+  async register({ username, password, role }: CreateUserDto) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = await this.usersService.create({
       username,
-      password,
+      password: hashedPassword,
       role,
     });
 
-    return newUser;
+    const { password: _pass, ...userNoPass } = newUser;
+
+    return userNoPass;
   }
 }

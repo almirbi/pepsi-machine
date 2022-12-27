@@ -19,8 +19,7 @@ export class AuthSerializer extends PassportSerializer {
     done: (err: Error, user: Omit<User, 'password'>) => void,
   ) {
     const user = await this.authService.findByUsername(payload.username);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...userStripped } = user;
-    done(null, userStripped);
+
+    done(null, user);
   }
 }
