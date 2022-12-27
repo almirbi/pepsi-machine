@@ -1,7 +1,6 @@
 import { IconButton } from "@mui/material";
-import { AxiosError } from "axios";
+
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
 import { Rupee } from "@types";
 import { RUPEES_IMAGE_MAP } from "./constants";
@@ -14,17 +13,6 @@ type Props = {
 };
 
 export const RupeeButton = ({ size, onClick, disabled }: Props) => {
-  const [, setError] = useState<AxiosError>();
-  useEffect(() => {
-    (async () => {
-      try {
-        setError(undefined);
-      } catch (e) {
-        setError(e as AxiosError);
-      }
-    })();
-  }, []);
-
   return (
     <IconButton disabled={disabled} size="large" onClick={onClick}>
       <Image
