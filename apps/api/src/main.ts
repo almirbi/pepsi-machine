@@ -21,7 +21,8 @@ async function bootstrap() {
       saveUninitialized: false,
       unset: 'destroy',
       store: memoryStore,
-      // cookie: { TODO
+      // TODO: should have secure cookies
+      // cookie: {
       //   secure: app.get('env') === 'production',
       // },
     }),
