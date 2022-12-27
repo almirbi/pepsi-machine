@@ -1,27 +1,27 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaService } from '../prisma.service';
-import { UsersService } from './users.service';
-import { UsersModule } from './users.module';
-import { ROLE } from './constants';
-import { Prisma, User } from '@prisma/client';
+import { Test, TestingModule } from "@nestjs/testing";
+import { PrismaService } from "../prisma.service";
+import { UsersService } from "./users.service";
+import { UsersModule } from "./users.module";
+import { ROLE } from "./constants";
+import { Prisma, User } from "@prisma/client";
 
-const USERNAME = 'mvp';
+const USERNAME = "mvp";
 
 const NEW_USER = {
   username: USERNAME,
-  password: 'eve',
+  password: "eve",
   role: ROLE.BUYER,
 };
 
-const ID = '1';
+const ID = "1";
 
 const userRecord = {
   id: ID,
   username: USERNAME,
-  role: 'BUYER',
+  role: "BUYER",
 } as unknown as Prisma.Prisma__UserClient<User>;
 
-describe('UserService', () => {
+describe("UserService", () => {
   let prisma: PrismaService;
   let userService: UsersService;
 
@@ -35,13 +35,13 @@ describe('UserService', () => {
     prisma = module.get<PrismaService>(PrismaService);
   });
 
-  it('should be defined', async () => {
+  it("should be defined", async () => {
     expect(userService).toBeDefined();
   });
 
-  it('should retrieve user by username', async () => {
+  it("should retrieve user by username", async () => {
     const spyUserService = jest
-      .spyOn(userService, 'findOne')
+      .spyOn(userService, "findOne")
       .mockImplementation(() => userRecord);
     const user = await userService.findOne(USERNAME);
 
@@ -49,9 +49,9 @@ describe('UserService', () => {
     expect(spyUserService).toHaveBeenCalledWith(USERNAME);
   });
 
-  it('should retrieve user by username', async () => {
+  it("should retrieve user by username", async () => {
     const spy = jest
-      .spyOn(prisma.user, 'create')
+      .spyOn(prisma.user, "create")
       .mockImplementation(() => userRecord);
 
     const user = await userService.create(NEW_USER);

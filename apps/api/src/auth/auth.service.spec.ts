@@ -1,11 +1,11 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaService } from '../prisma.service';
-import { UsersModule } from '../users/users.module';
+import { Test, TestingModule } from "@nestjs/testing";
+import { PrismaService } from "../prisma.service";
+import { UsersModule } from "../users/users.module";
 // import { ROLE } from '../users/constants';
-import { Prisma, User } from '@prisma/client';
-import { AuthService } from './auth.service';
+import { Prisma, User } from "@prisma/client";
+import { AuthService } from "./auth.service";
 
-const USERNAME = 'mvp';
+const USERNAME = "mvp";
 
 // const NEW_USER = {
 //   username: USERNAME,
@@ -13,15 +13,15 @@ const USERNAME = 'mvp';
 //   role: ROLE.BUYER,
 // };
 
-const ID = '1';
+const ID = "1";
 
 const userRecord = {
   id: ID,
   username: USERNAME,
-  role: 'BUYER',
+  role: "BUYER",
 } as unknown as Prisma.Prisma__UserClient<User>;
 
-describe('AuthService', () => {
+describe("AuthService", () => {
   // let userService: UsersService;
   let authService: AuthService;
 
@@ -44,11 +44,11 @@ describe('AuthService', () => {
     // prisma = module.get<PrismaService>(PrismaService);
   });
 
-  it('should be defined', async () => {
+  it("should be defined", async () => {
     expect(authService).toBeDefined();
   });
 
-  it('should retrieve user by username', async () => {
+  it("should retrieve user by username", async () => {
     const user = await authService.findByUsername(USERNAME);
 
     expect(user.username).toBe(USERNAME);

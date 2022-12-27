@@ -1,4 +1,4 @@
 export enum ROLE {
-  BUYER = 'BUYER',
-  SELLER = 'SELLER',
+  BUYER = "BUYER",
+  SELLER = "SELLER",
 }

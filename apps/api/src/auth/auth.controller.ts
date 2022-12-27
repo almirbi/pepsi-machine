@@ -6,20 +6,20 @@ import {
   Body,
   UnauthorizedException,
   Get,
-} from '@nestjs/common';
-import { ApiBody } from '@nestjs/swagger';
+} from "@nestjs/common";
+import { ApiBody } from "@nestjs/swagger";
 
-import { AuthService } from './auth.service';
-import { LocalAuthGuard } from './local-auth.guard';
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { LoginUserDto } from '../users/dto/login-user.dto';
-import { LoggedInGuard } from './logged-in.guard';
+import { AuthService } from "./auth.service";
+import { LocalAuthGuard } from "./local-auth.guard";
+import { CreateUserDto } from "../users/dto/create-user.dto";
+import { LoginUserDto } from "../users/dto/login-user.dto";
+import { LoggedInGuard } from "./logged-in.guard";
 
-@Controller('auth')
+@Controller("auth")
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Post('login')
+  @Post("login")
   @UseGuards(LocalAuthGuard)
   @ApiBody({ type: LoginUserDto })
   async login(@Request() req) {
@@ -30,7 +30,7 @@ export class AuthController {
     return req.user;
   }
 
-  @Post('logout')
+  @Post("logout")
   @UseGuards(LoggedInGuard)
   async logout(@Request() req) {
     await this.authService.logout({
@@ -40,19 +40,19 @@ export class AuthController {
     return req.session;
   }
 
-  @Get('me')
+  @Get("me")
   @UseGuards(LoggedInGuard)
   async me(@Request() req) {
     return req.user;
   }
 
-  @Post('logout/all')
+  @Post("logout/all")
   @ApiBody({ type: LoginUserDto })
   async logoutAll(@Body() credentials) {
     const user = await this.authService.validateUser(
       credentials.username,
       credentials.password,
-      true,
+      true
     );
 
     if (user) {
@@ -64,7 +64,7 @@ export class AuthController {
     return { logout: true };
   }
 
-  @Post('register')
+  @Post("register")
   async register(@Body() createUserDto: CreateUserDto) {
     const user = await this.authService.findByUsername(createUserDto.username);
 

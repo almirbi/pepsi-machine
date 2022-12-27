@@ -1,7 +1,7 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
-import { User } from '@prisma/client';
-import { SelfDecoratorParams } from './self.decorator';
+import { Injectable, CanActivate, ExecutionContext } from "@nestjs/common";
+import { Reflector } from "@nestjs/core";
+import { User } from "@prisma/client";
+import { SelfDecoratorParams } from "./self.decorator";
 
 @Injectable()
 export class SelfUserGuard implements CanActivate {
@@ -12,13 +12,13 @@ export class SelfUserGuard implements CanActivate {
     const user = request.user as User;
 
     let selfParams = this.reflector.get<SelfDecoratorParams>(
-      'selfParams',
-      context.getHandler(),
+      "selfParams",
+      context.getHandler()
     );
     if (!selfParams)
       selfParams = this.reflector.get<SelfDecoratorParams>(
-        'selfParams',
-        context.getClass(),
+        "selfParams",
+        context.getClass()
       );
 
     if (!selfParams) return true;

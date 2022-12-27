@@ -1,35 +1,35 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
-import { PrismaService } from './prisma.service';
-import { ProductsService } from './products/products.service';
-import { ROLE } from './users/constants';
-import { CreateUserDto } from './users/dto/create-user.dto';
-import { UsersService } from './users/users.service';
-import * as httpMocks from 'node-mocks-http';
-import { Product, User } from '@prisma/client';
-import { CreateProductDto } from './products/dto/create-product.dto';
-import { HttpException } from '@nestjs/common';
+import { Test, TestingModule } from "@nestjs/testing";
+import { AppController } from "./app.controller";
+import { PrismaService } from "./prisma.service";
+import { ProductsService } from "./products/products.service";
+import { ROLE } from "./users/constants";
+import { CreateUserDto } from "./users/dto/create-user.dto";
+import { UsersService } from "./users/users.service";
+import * as httpMocks from "node-mocks-http";
+import { Product, User } from "@prisma/client";
+import { CreateProductDto } from "./products/dto/create-product.dto";
+import { HttpException } from "@nestjs/common";
 
 const newBuyer: CreateUserDto = {
-  username: 'bob',
-  password: '13378',
+  username: "bob",
+  password: "13378",
   role: ROLE.BUYER,
 };
 
 const newSeller: CreateUserDto = {
-  username: 'alice',
-  password: '13378',
+  username: "alice",
+  password: "13378",
   role: ROLE.SELLER,
 };
 
 const newProduct1: CreateProductDto = {
-  productName: 'Whisker',
+  productName: "Whisker",
   amountAvailable: 11,
   cost: 250,
 };
 
 const newProduct2: CreateProductDto = {
-  productName: 'Broom',
+  productName: "Broom",
   amountAvailable: 90,
   cost: 23,
 };
@@ -37,7 +37,7 @@ const newProduct2: CreateProductDto = {
 const STARTING_DEPOSIT = 5002;
 const ADDED_DEPOSIT = 100;
 
-describe('AppController', () => {
+describe("AppController", () => {
   let appController: AppController;
   let prisma: PrismaService;
   let buyer: User;
@@ -85,26 +85,26 @@ describe('AppController', () => {
   });
 
   type RequestWithUser = Request & { user: User };
-  describe('root', () => {
-    it('should /deposit 100', async () => {
+  describe("root", () => {
+    it("should /deposit 100", async () => {
       const response = await appController.deposit(
         { deposit: ADDED_DEPOSIT },
-        mockRequest,
+        mockRequest
       );
 
       expect(response.deposit).toBe(STARTING_DEPOSIT + ADDED_DEPOSIT);
     });
 
-    it('should /buy 100', async () => {
+    it("should /buy 100", async () => {
       const AMOUNT = 3;
       const response = await appController.buy(
         { productId: product2.id, amount: AMOUNT },
-        mockRequest,
+        mockRequest
       );
 
       expect(response.totalSpent).toBe(product2.cost * AMOUNT);
       expect(response.product.amountAvailable).toBe(
-        newProduct2.amountAvailable - AMOUNT,
+        newProduct2.amountAvailable - AMOUNT
       );
     });
 
@@ -113,24 +113,24 @@ describe('AppController', () => {
       await expect(
         appController.buy(
           { productId: product1.id, amount: AMOUNT },
-          mockRequest,
-        ),
+          mockRequest
+        )
       ).rejects.toThrowError(HttpException);
     });
 
-    it('/reset should reset deposit to 0', async () => {
+    it("/reset should reset deposit to 0", async () => {
       const response = await appController.reset(mockRequest);
 
       expect(response.deposit).toBe(0);
     });
 
-    it('/buy should throw not enough money', async () => {
+    it("/buy should throw not enough money", async () => {
       const AMOUNT = 10;
       await expect(
         appController.buy(
           { productId: product1.id, amount: AMOUNT },
-          mockRequest,
-        ),
+          mockRequest
+        )
       ).rejects.toThrowError(HttpException);
     });
   });

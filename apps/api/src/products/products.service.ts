@@ -1,9 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
-import { PrismaService } from '../prisma.service';
-import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
-import { getChangeArray } from './utils';
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { User } from "@prisma/client";
+import { PrismaService } from "../prisma.service";
+import { CreateProductDto } from "./dto/create-product.dto";
+import { UpdateProductDto } from "./dto/update-product.dto";
+import { getChangeArray } from "./utils";
 
 @Injectable()
 export class ProductsService {
@@ -55,7 +55,7 @@ export class ProductsService {
     if (!product) {
       throw new HttpException(
         `Product ${id} does not exits`,
-        HttpStatus.BAD_REQUEST,
+        HttpStatus.BAD_REQUEST
       );
     }
 
@@ -63,12 +63,12 @@ export class ProductsService {
     if (product.amountAvailable < amount) {
       throw new HttpException(
         `PEPSI machine does not have ${amount} of this product. Only ${product.amountAvailable} left.`,
-        HttpStatus.BAD_REQUEST,
+        HttpStatus.BAD_REQUEST
       );
     }
 
     if (totalPrice > user.deposit) {
-      throw new HttpException('Not enough coins.', HttpStatus.BAD_REQUEST);
+      throw new HttpException("Not enough coins.", HttpStatus.BAD_REQUEST);
     }
 
     const updatedProduct = await this.prisma.product.update({

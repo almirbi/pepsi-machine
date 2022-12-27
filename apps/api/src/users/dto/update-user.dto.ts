@@ -1,6 +1,6 @@
-import { PartialType } from '@nestjs/swagger';
-import { IsIn } from 'class-validator';
-import { CreateUserDto } from './create-user.dto';
+import { PartialType } from "@nestjs/swagger";
+import { IsIn } from "class-validator";
+import { CreateUserDto } from "./create-user.dto";
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
   // TODO extract as constant

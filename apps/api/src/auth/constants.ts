@@ -1,1 +1,1 @@
-export const loginSecret = 'secretKey';
+export const loginSecret = "secretKey";

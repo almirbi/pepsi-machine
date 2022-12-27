@@ -1,15 +1,15 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { memoryStore } from 'src/memory-store';
-import { PrismaService } from '../prisma.service';
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { UsersService } from '../users/users.service';
-import * as bcrypt from 'bcrypt';
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { memoryStore } from "src/memory-store";
+import { PrismaService } from "../prisma.service";
+import { CreateUserDto } from "../users/dto/create-user.dto";
+import { UsersService } from "../users/users.service";
+import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
-    private prisma: PrismaService,
+    private prisma: PrismaService
   ) {}
 
   async findByUsername(username: string) {
@@ -46,7 +46,7 @@ export class AuthService {
   async validateUser(
     username: string,
     inputPassword: string,
-    isLogout?: boolean,
+    isLogout?: boolean
   ) {
     // TODO: can be joined into one query
     const user = await this.prisma.user.findUnique({ where: { username } });
@@ -57,7 +57,7 @@ export class AuthService {
 
     const isPasswordMatching = await bcrypt.compare(
       inputPassword,
-      user.password,
+      user.password
     );
 
     if (!isPasswordMatching) {
@@ -72,7 +72,7 @@ export class AuthService {
       if (session) {
         throw new HttpException(
           `There is already an active session using your account`,
-          HttpStatus.UNAUTHORIZED,
+          HttpStatus.UNAUTHORIZED
         );
       }
     }

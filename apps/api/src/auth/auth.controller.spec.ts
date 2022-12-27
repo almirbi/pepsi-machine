@@ -1,29 +1,29 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { Prisma, User } from '@prisma/client';
-import { UsersService } from '../users/users.service';
-import { ROLE } from '../users/constants';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { PrismaService } from '../prisma.service';
+import { Test, TestingModule } from "@nestjs/testing";
+import { Prisma, User } from "@prisma/client";
+import { UsersService } from "../users/users.service";
+import { ROLE } from "../users/constants";
+import { AuthController } from "./auth.controller";
+import { AuthService } from "./auth.service";
+import { PrismaService } from "../prisma.service";
 
-const USERNAME = 'mvp';
+const USERNAME = "mvp";
 
 const NEW_USER = {
   username: USERNAME,
-  password: 'eve',
+  password: "eve",
   role: ROLE.BUYER,
 };
 
-const ID = '1';
+const ID = "1";
 
 const userRecord = {
   id: ID,
   username: USERNAME,
-  password: 'eve',
+  password: "eve",
   role: ROLE.BUYER,
 } as unknown as Prisma.Prisma__UserClient<User>;
 
-describe('AppController', () => {
+describe("AppController", () => {
   let authController: AuthController;
   let authService: AuthService;
 
@@ -37,13 +37,13 @@ describe('AppController', () => {
     authService = app.get<AuthService>(AuthService);
   });
 
-  describe('AppController', () => {
+  describe("AppController", () => {
     it('should find and register"', async () => {
       const spyFind = jest
-        .spyOn(authService, 'findByUsername')
+        .spyOn(authService, "findByUsername")
         .mockImplementation(() => null);
       const spyRegister = jest
-        .spyOn(authService, 'register')
+        .spyOn(authService, "register")
         .mockImplementation(() => userRecord);
 
       const user = await authController.register(NEW_USER);
