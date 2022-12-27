@@ -116,11 +116,13 @@ export const Navigation = () => {
                       borderColor: yellow[500],
                       color: yellow[500],
                       background: "transparent",
+                      cursor: "pointer",
                     }}
                     amount={user.deposit / 100}
                   />
                 </Link>
                 <NavigationButton
+                  size="small"
                   endIcon={<LogoutIcon />}
                   onClick={async () => {
                     try {
@@ -150,4 +152,5 @@ const NavigationButton = styled(Button)<ButtonProps>(({ theme }) => ({
   "&:hover": {
     backgroundColor: yellow[700],
   },
+  px: 3,
 }));
