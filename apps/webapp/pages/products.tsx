@@ -28,9 +28,9 @@ const Products = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Grid justifyContent="center" spacing={2} width="100%">
+        <Grid justifyContent="center" width="100%">
           {user?.role === ROLE.SELLER && (
-            <Grid padding={0} md={4} justifyContent="center" sm={12}>
+            <Grid item padding={0} md={4} justifyContent="center" sm={12}>
               <AddProductForm
                 onAdd={async () => {
                   setProducts((await apiClient.get("/products")).data);
@@ -38,7 +38,7 @@ const Products = () => {
               />
             </Grid>
           )}
-          <Grid width="100%" md={8} sm={12}>
+          <Grid item width="100%" md={8} sm={12}>
             <ProductList
               onBuy={async (buyResult: BuyResult) => {
                 setBuyResult(buyResult);
