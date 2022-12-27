@@ -31,11 +31,13 @@ const Products = () => {
         <Grid justifyContent="center" width="100%">
           {user?.role === ROLE.SELLER && (
             <Grid item padding={0} md={4} justifyContent="center" sm={12}>
-              <AddProductForm
-                onAdd={async () => {
-                  setProducts((await apiClient.get("/products")).data);
-                }}
-              />
+              <Box display="flex" width="100%" justifyContent="center">
+                <AddProductForm
+                  onAdd={async () => {
+                    setProducts((await apiClient.get("/products")).data);
+                  }}
+                />
+              </Box>
             </Grid>
           )}
           <Grid item width="100%" md={8} sm={12}>
