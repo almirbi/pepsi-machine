@@ -1,4 +1,4 @@
-import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import { CurrencyRupee } from "@mui/icons-material";
 import {
   Button,
   List,
@@ -79,7 +79,7 @@ export default function ProductList({ products, setProducts, onBuy }: Props) {
                       color="secondary"
                       display="flex"
                     >
-                      <CurrencyRupeeIcon fontSize="large" />
+                      <CurrencyRupee fontSize="large" />
                       {`${product.cost / 100}`}
                     </Typography>
                   </>
