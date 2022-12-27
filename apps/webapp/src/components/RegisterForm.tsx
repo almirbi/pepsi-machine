@@ -91,7 +91,6 @@ export const RegisterForm = () => {
             }
           }}
           variant="outlined"
-          sx={{ textTransform: "none" }}
         >
           submit
         </Button>

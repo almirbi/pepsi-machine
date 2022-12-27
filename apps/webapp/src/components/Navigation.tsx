@@ -93,7 +93,12 @@ export const Navigation = () => {
           >
             {pages.map((page) => (
               <Link key={page} href={`/${page}`}>
-                <Typography color="white">{page}</Typography>
+                <Typography
+                  sx={{ textDecoration: "none !important" }}
+                  color="white"
+                >
+                  {page}
+                </Typography>
               </Link>
             ))}
           </Box>
@@ -105,14 +110,16 @@ export const Navigation = () => {
           >
             {user && (
               <>
-                <DepositMeter
-                  sx={{
-                    borderColor: yellow[500],
-                    color: yellow[500],
-                    background: "transparent",
-                  }}
-                  amount={user.deposit / 100}
-                />
+                <Link href="/deposit">
+                  <DepositMeter
+                    sx={{
+                      borderColor: yellow[500],
+                      color: yellow[500],
+                      background: "transparent",
+                    }}
+                    amount={user.deposit / 100}
+                  />
+                </Link>
                 <NavigationButton
                   endIcon={<LogoutIcon />}
                   onClick={async () => {
@@ -143,5 +150,4 @@ const NavigationButton = styled(Button)<ButtonProps>(({ theme }) => ({
   "&:hover": {
     backgroundColor: yellow[700],
   },
-  textTransform: "none",
 }));

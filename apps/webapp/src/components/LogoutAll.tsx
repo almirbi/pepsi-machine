@@ -61,7 +61,6 @@ export const LogoutAll = () => {
             }
           }}
           variant="outlined"
-          sx={{ textDecoration: "none", textTransform: "none" }}
         >
           logout
         </Button>

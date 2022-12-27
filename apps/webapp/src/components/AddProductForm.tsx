@@ -82,7 +82,6 @@ export const AddProductForm = ({ onAdd }: Props) => {
             }
           }}
           variant="outlined"
-          sx={{ textTransform: "none" }}
         >
           submit
         </Button>

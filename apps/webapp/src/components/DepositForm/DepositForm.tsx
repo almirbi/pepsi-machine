@@ -135,7 +135,6 @@ export const DepositForm = () => {
               }
             }}
             variant="outlined"
-            sx={{ textTransform: "none" }}
           >
             reset deposit to 0
           </Button>

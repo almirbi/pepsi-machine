@@ -67,7 +67,6 @@ export const LoginForm = () => {
             }
           }}
           variant="outlined"
-          sx={{ textTransform: "none" }}
         >
           submit
         </Button>

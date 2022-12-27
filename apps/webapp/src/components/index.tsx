@@ -8,3 +8,4 @@ export * from "./ProductList";
 export * from "./RegisterForm";
 export * from "./ShowErrors";
 export * from "./UserContext";
+export * from "./theme";
