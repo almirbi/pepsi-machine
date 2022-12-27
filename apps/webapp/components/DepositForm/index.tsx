@@ -5,8 +5,10 @@ import ShowErrors from "../ShowErrors";
 import RupeeButton from "./RupeeButton";
 import { DEPOSIT_SIZES } from "../../constants";
 import {
+  Badge,
   Box,
   Button,
+  Chip,
   Container,
   LinearProgress,
   Snackbar,
@@ -15,6 +17,7 @@ import {
 } from "@mui/material";
 import { Rupee } from "../../types";
 import { UserContext } from "../UserContext";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
 type State = {
   size?: Rupee;
@@ -63,33 +66,58 @@ export default function DepositForm() {
     startProgress();
   };
 
+  const { user } = useContext(UserContext);
+
+  if (!user) {
+    return null;
+  }
+
   return (
     <>
       <Stack spacing={2}>
-        <Typography mb={5} textAlign="center" variant="h4">
-          deposit rupees
-        </Typography>
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          mb={5}
+        >
+          <Typography mb={5} textAlign="center" variant="h4" marginBottom={0}>
+            deposit rupees
+          </Typography>
+          <Chip
+            sx={{ ml: 2, width: 100 }}
+            label={
+              <Box display="flex" alignItems="center">
+                {user.deposit / 100}
+                <CurrencyRupeeIcon />
+              </Box>
+            }
+          />
+        </Stack>
+
         <Stack mt={12} direction="row" justifyContent="center">
           {DEPOSIT_SIZES.map((size) => (
-            <RupeeButton
-              key={size}
-              disabled={state.isMachineReloading}
-              size={size}
-              onClick={async () => {
-                try {
-                  const { data: updatedUser } = await apiClient.post(
-                    "/deposit",
-                    {
-                      deposit: size,
-                    }
-                  );
-                  setUser?.(updatedUser);
-                  startMachineReload(size);
-                } catch (e) {
-                  setError(e as AxiosError);
-                }
-              }}
-            />
+            <Badge badgeContent={size / 100} color="secondary">
+              <RupeeButton
+                key={size}
+                disabled={state.isMachineReloading}
+                size={size}
+                onClick={async () => {
+                  try {
+                    const { data: updatedUser } = await apiClient.post(
+                      "/deposit",
+                      {
+                        deposit: size,
+                      }
+                    );
+                    setUser?.(updatedUser);
+                    startMachineReload(size);
+                  } catch (e) {
+                    setError(e as AxiosError);
+                  }
+                }}
+              />
+            </Badge>
           ))}
         </Stack>
         <Box>

@@ -5,6 +5,7 @@ import { AxiosError } from "axios";
 import ShowErrors from "./ShowErrors";
 import { Button, List, ListItem, ListItemText, TextField } from "@mui/material";
 import { BuyResult } from "../types";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
 type Props = {
   products: Product[];
@@ -46,7 +47,10 @@ export default function ProductList({ products, setProducts, onBuy }: Props) {
               primary={product.productName}
               secondary={
                 <>
-                  <ListItemText>{`R ${product.cost / 100}`}</ListItemText>
+                  <ListItemText>
+                    <CurrencyRupeeIcon />
+                    {`${product.cost / 100}`}
+                  </ListItemText>
                   <ListItemText>
                     Stock: x {product.amountAvailable}
                   </ListItemText>

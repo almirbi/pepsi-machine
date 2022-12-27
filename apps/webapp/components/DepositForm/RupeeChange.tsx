@@ -8,7 +8,13 @@ type Props = {
 
 export default function RupeeChange({ change }: Props) {
   return (
-    <Stack direction="row" width="100%" maxWidth="400px" gap={3}>
+    <Stack
+      direction="row"
+      width="100%"
+      maxWidth="400px"
+      justifyContent="space-between"
+      gap={3}
+    >
       {change.map((value, index) => {
         return <RupeeIcon size={DEPOSIT_SIZES[index]} count={value} />;
       })}

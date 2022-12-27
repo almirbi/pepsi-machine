@@ -24,7 +24,14 @@ export default function RupeeIcon({ size, width = 20, count }: Props) {
   }, []);
 
   return (
-    <Badge badgeContent={count} color="primary">
+    <Badge
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "left",
+      }}
+      badgeContent={`x${count}`}
+      color="primary"
+    >
       <Image
         width={width}
         src={RUPEES_IMAGE_MAP[size.toString() as keyof typeof RUPEES_IMAGE_MAP]}
