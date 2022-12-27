@@ -48,7 +48,7 @@ export const ProductList = ({ products, setProducts, onBuy }: Props) => {
   }
 
   return (
-    <div>
+    <>
       <List
         sx={{
           width: "100%",
@@ -136,6 +136,6 @@ export const ProductList = ({ products, setProducts, onBuy }: Props) => {
         )}
       </List>
       <ShowErrors error={error as AxiosError} />
-    </div>
+    </>
   );
 };
