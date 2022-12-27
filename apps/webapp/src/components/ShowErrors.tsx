@@ -1,7 +1,8 @@
-import { Alert, AlertTitle, Link, Stack, Typography } from "@mui/material";
+import { Alert, AlertTitle, Stack, Typography } from "@mui/material";
 import { AxiosError } from "axios";
 
 import { getErrorsFromResponse } from "@utils";
+import Link from "next/link";
 
 export const ShowErrors = ({ error }: { error: AxiosError }) => {
   const messages = getErrorsFromResponse(error);
