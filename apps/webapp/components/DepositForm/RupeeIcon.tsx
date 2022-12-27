@@ -1,18 +1,17 @@
 import Image from "next/image";
-import disabledRupee from "./disabled.png";
 import { useEffect, useState } from "react";
 import { AxiosError } from "axios";
-import { IconButton } from "@mui/material";
 import { Rupee } from "../../types";
 import { RUPEES_IMAGE_MAP } from "./constants";
+import { Badge } from "@mui/material";
 
 type Props = {
   size: Rupee;
-  onClick: () => void;
-  disabled?: boolean;
+  width?: number;
+  count?: number;
 };
 
-export default function RupeeButton({ size, onClick, disabled }: Props) {
+export default function RupeeIcon({ size, width = 20, count }: Props) {
   const [, setError] = useState<AxiosError>();
   useEffect(() => {
     (async () => {
@@ -25,16 +24,12 @@ export default function RupeeButton({ size, onClick, disabled }: Props) {
   }, []);
 
   return (
-    <IconButton disabled={disabled} size="large" onClick={onClick}>
+    <Badge badgeContent={count} color="primary">
       <Image
-        width={50}
-        src={
-          disabled
-            ? disabledRupee
-            : RUPEES_IMAGE_MAP[size.toString() as keyof typeof RUPEES_IMAGE_MAP]
-        }
+        width={width}
+        src={RUPEES_IMAGE_MAP[size.toString() as keyof typeof RUPEES_IMAGE_MAP]}
         alt={`ruppe ${size}`}
       />
-    </IconButton>
+    </Badge>
   );
 }

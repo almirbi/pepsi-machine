@@ -33,7 +33,8 @@ export default function ProductList({ products, setProducts, onBuy }: Props) {
       <List
         sx={{
           width: "100%",
-          maxHeight: "calc(45vh)",
+          maxWidth: "700px",
+          maxHeight: "90vh",
           overflow: "scroll",
           bgcolor: "background",
         }}
@@ -41,13 +42,20 @@ export default function ProductList({ products, setProducts, onBuy }: Props) {
         {products?.map((product) => (
           <ListItem key={product.id}>
             <ListItemText
+              sx={{ width: { md: "300px", xs: "80px" } }}
               primary={product.productName}
-              secondary={`R ${product.cost / 100}`}
+              secondary={
+                <>
+                  <ListItemText>{`R ${product.cost / 100}`}</ListItemText>
+                  <ListItemText>
+                    Stock: x {product.amountAvailable}
+                  </ListItemText>
+                </>
+              }
             />
-            <ListItemText>x {product.amountAvailable}</ListItemText>
 
             <TextField
-              sx={{ mr: 2, width: 90 }}
+              sx={{ mr: 2, width: { xs: 60, md: 90 } }}
               defaultValue={amount}
               label="amount"
               onChange={(event) => {
@@ -55,7 +63,10 @@ export default function ProductList({ products, setProducts, onBuy }: Props) {
               }}
               type="number"
               InputProps={{
-                inputProps: { min: 1, max: product.amountAvailable },
+                inputProps: {
+                  min: product.amountAvailable > 0 ? 1 : 0,
+                  max: product.amountAvailable,
+                },
               }}
             />
             <Button
