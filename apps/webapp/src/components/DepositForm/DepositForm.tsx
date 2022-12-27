@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { AxiosError } from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { DEPOSIT_SIZES } from "@constants";
 import { Rupee } from "@types";
@@ -33,10 +33,14 @@ const TOTAL = 100;
 const STEP = 10;
 const SPEED = 50;
 
-const audio = new Audio("win.mp3");
-
 export const DepositForm = () => {
   const [error, setError] = useState<AxiosError>();
+
+  const [audio, setAudio] = useState<HTMLAudioElement>();
+
+  useEffect(() => {
+    setAudio(new Audio("win.mp3"));
+  }, []);
 
   const [state, setState] = useState<State>({ progress: 0 });
   const [snackOpen, setSnackOpen] = useState(false);
@@ -110,7 +114,7 @@ export const DepositForm = () => {
                     setUser?.(updatedUser);
                     startMachineReload(size);
 
-                    audio.play();
+                    audio?.play();
                   } catch (e) {
                     setError(e as AxiosError);
                   }
