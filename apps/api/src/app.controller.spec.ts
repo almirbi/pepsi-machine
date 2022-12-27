@@ -1,6 +1,6 @@
 import { HttpException } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
-import { Product, User } from "@prisma/client";
+import { Product, User } from "database";
 import * as httpMocks from "node-mocks-http";
 
 import { AppController } from "./app.controller";
@@ -19,7 +19,7 @@ const newBuyer: CreateUserDto = {
 
 const newSeller: CreateUserDto = {
   username: "alice",
-  password: "13378",
+  password: "tring1337",
   role: ROLE.SELLER,
 };
 
@@ -139,9 +139,9 @@ describe("AppController", () => {
   afterAll(async () => {
     const deleteUsers = prisma.user.deleteMany();
     const deleteProducts = prisma.product.deleteMany();
+    const deleteSessions = prisma.sessions.deleteMany();
 
-    await prisma.$transaction([deleteProducts, deleteUsers]);
-
+    await prisma.$transaction([deleteProducts, deleteUsers, deleteSessions]);
     await prisma.$disconnect();
   });
 });
