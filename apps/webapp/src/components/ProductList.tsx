@@ -49,12 +49,11 @@ export const ProductList = ({ products, setProducts, onBuy }: Props) => {
 
   return (
     <div>
-      <ShowErrors error={error as AxiosError} />
       <List
         sx={{
           width: "100%",
           maxWidth: "700px",
-          maxHeight: "90vh",
+          maxHeight: "65vh",
           overflow: "scroll",
           bgcolor: "background",
         }}
@@ -127,6 +126,7 @@ export const ProductList = ({ products, setProducts, onBuy }: Props) => {
           ) : null
         )}
       </List>
+      <ShowErrors error={error as AxiosError} />
     </div>
   );
 };
