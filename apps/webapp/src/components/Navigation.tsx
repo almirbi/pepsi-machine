@@ -76,9 +76,11 @@ export const Navigation = () => {
             >
               <Stack p={2} gap={2}>
                 {pages.map((page) => (
-                  <Typography key={page} p={3} fontSize={25}>
-                    <Link href={`/${page}`}>{page}</Link>
-                  </Typography>
+                  <Link href={`/${page}`}>
+                    <Typography key={page} p={3} fontSize={25}>
+                      {page}
+                    </Typography>
+                  </Link>
                 ))}
               </Stack>
             </Menu>
