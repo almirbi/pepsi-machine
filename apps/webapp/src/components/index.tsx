@@ -1,5 +1,5 @@
 export * from "./AddProductForm";
-export * from "./DepositForm";
+export * from "./Deposit";
 export * from "./LoginForm";
 export * from "./LogoutAll";
 export * from "./Navigation";
