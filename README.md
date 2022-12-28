@@ -6,6 +6,44 @@
 
 This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. It includes the following packages/apps:
 
+## Getting started
+
+Prerequisites:
+
+- Node 18 (tested on, probably supports less)
+- Docker
+- yarn
+
+Install dependencies
+
+```
+yarn
+```
+
+Start the DB:
+
+```
+docker compose -f ./packages/database/docker-compose.yml up -d
+```
+
+Run the API and webapp
+
+```
+yarn dev
+```
+
+Adding a package to a monorepo
+
+```
+yarn workspace (api | webapp | database | eslint-config-custom) add react
+```
+
+e.g.
+
+```
+yarn workspace api add @types/node
+```
+
 ### Apps and Packages
 
 - `api`: `NEST JS` API for managing users, products, deposit and buying/selling.
@@ -26,12 +64,18 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 To develop all apps and packages, run the following command:
 
 ```
-yarn run dev
+yarn dev
 ```
 
 API documentation available at [http://localhost:3000/docs](http://localhost:3000/docs)
 
 Visit [http://localhost:3001/](http://localhost:3001/) for the test webapp.
+
+## Testing
+
+```
+yarn test
+```
 
 ### Build
 
