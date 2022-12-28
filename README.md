@@ -73,6 +73,12 @@ Visit [http://localhost:3001/](http://localhost:3001/) for the test webapp.
 
 ## Testing
 
+Watch out, running tests cleans the database
+TODO: separate DB for tests
+
+Also requires the DB running
+TODO? Mock prisma?
+
 ```
 yarn test
 ```
