@@ -13,7 +13,9 @@
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "postinstall": "yarn workspace database prisma db push",
+    "clean": "yarn workspace database prisma migrate reset && git clean -fdx"
   },
   "devDependencies": {
     "eslint-config-custom": "*",
