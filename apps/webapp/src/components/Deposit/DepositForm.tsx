@@ -146,6 +146,7 @@ export const DepositForm = () => {
               }
             }}
             variant="outlined"
+            disabled={user.deposit === 0}
           >
             reset deposit to 0
           </Button>
