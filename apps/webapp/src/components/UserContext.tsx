@@ -1,4 +1,4 @@
-import { User } from "database";
+import { User } from "@types";
 import { createContext } from "react";
 
 type ContextType = {
@@ -6,7 +6,4 @@ type ContextType = {
   setUser?: (_val?: User) => void;
 };
 
-export const UserContext = createContext<ContextType>({
-  user: undefined,
-  setUser: undefined,
-});
+export const UserContext = createContext<ContextType>({});

@@ -1,6 +1,6 @@
 import { css, Global } from "@emotion/react";
 import { Container } from "@mui/material";
-import { User } from "database";
+import { User } from "@types";
 import type { AppProps } from "next/app";
 import { useMemo, useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";

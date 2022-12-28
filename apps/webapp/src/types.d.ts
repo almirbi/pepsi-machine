@@ -1,4 +1,4 @@
-import { Product } from "database";
+import { Product, User as PrismaUser } from "database";
 
 export type Rupee = 5 | 10 | 20 | 50 | 100;
 
@@ -8,3 +8,5 @@ export type BuyResult = {
   product: Product;
   change: number[];
 };
+
+export type User = Omit<PrismaUser, "password">;

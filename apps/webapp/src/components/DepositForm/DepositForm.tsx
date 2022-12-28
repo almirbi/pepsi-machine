@@ -13,7 +13,7 @@ import { AxiosError } from "axios";
 import { useContext, useEffect, useState } from "react";
 
 import { DEPOSIT_SIZES } from "@constants";
-import { Rupee } from "@types";
+import { Rupee, User } from "@types";
 import { apiClient } from "@api";
 
 import {
@@ -138,9 +138,9 @@ export const DepositForm = () => {
           <Button
             onClick={async () => {
               try {
-                await apiClient.post("/reset");
-                const user = await apiClient.get("/auth/me");
-                setUser?.(user.data);
+                const { data: user } = await apiClient.post<User>("/reset");
+
+                setUser?.(user);
               } catch (e) {
                 setError(e as AxiosError);
               }

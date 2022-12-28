@@ -7,12 +7,13 @@ import {
   Typography,
 } from "@mui/material";
 import { AxiosError } from "axios";
-import { User } from "database";
+import { User } from "@types";
 import { useRouter } from "next/router";
 import * as React from "react";
 
 import { apiClient } from "@api";
 import { ShowErrors, UserContext } from "@components";
+import { ROLE } from "@constants";
 
 export const LoginForm = () => {
   const [registerBody, setRegisterBody] = React.useState<Partial<User>>();
@@ -55,13 +56,15 @@ export const LoginForm = () => {
         <Button
           onClick={async () => {
             try {
-              const { data: currentUser } = await apiClient.post(
+              const { data: currentUser } = await apiClient.post<User>(
                 "/auth/login",
                 registerBody
               );
 
               setUser?.(currentUser);
-              router.push("/products");
+              router.push(
+                currentUser.role === ROLE.BUYER ? "/products" : "/deposit"
+              );
             } catch (e) {
               setError(e as AxiosError);
             }
