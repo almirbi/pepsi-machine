@@ -12,11 +12,10 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <Box display="flex" width="100%" justifyContent="center">
-          <RegisterForm />
-        </Box>
-      </main>
+
+      <Box display="flex" width="100%" justifyContent="center">
+        <RegisterForm />
+      </Box>
     </>
   );
 };

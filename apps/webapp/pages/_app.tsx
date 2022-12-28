@@ -27,8 +27,9 @@ const App = ({ Component, pageProps }: AppProps) => {
             }
           `}
         />
-        <Navigation />
-        <Container sx={{ mt: 5 }}>
+
+        <Container component="main" sx={{ px: 0, pt: { xs: 10, md: 13 } }}>
+          <Navigation />
           <Component {...pageProps} />
         </Container>
       </UserContext.Provider>

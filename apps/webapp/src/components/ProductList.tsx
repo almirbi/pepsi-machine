@@ -4,6 +4,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -48,23 +49,18 @@ export const ProductList = ({ products, setProducts, onBuy }: Props) => {
   }
 
   return (
-    <>
+    <Stack alignItems="center" gap={3} display="flex" width="100%">
       <List
         sx={{
+          pt: 2,
+          pb: 0,
           width: "100%",
           maxWidth: "700px",
-          maxHeight: "65vh",
+          maxHeight: error
+            ? { xs: "65vh", md: "100vh" }
+            : { xs: "calc(100vh - 56px)", md: "100vh" },
           overflow: "scroll",
           bgcolor: "background",
-          "::-webkit-scrollbar": {
-            "-webkit-appearance": "none",
-            width: "7px",
-          },
-          "::-webkit-scrollbar-thumb": {
-            "border-radius": "4px",
-            "background-color": "rgba(0, 0, 0, 0.5)",
-            "box-shadow": "0 0 1px rgba(255, 255, 255, 0.5)",
-          },
         }}
       >
         {products?.map((product) =>
@@ -136,6 +132,6 @@ export const ProductList = ({ products, setProducts, onBuy }: Props) => {
         )}
       </List>
       <ShowErrors error={error as AxiosError} />
-    </>
+    </Stack>
   );
 };

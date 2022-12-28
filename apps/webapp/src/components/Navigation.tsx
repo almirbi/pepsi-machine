@@ -49,7 +49,7 @@ export const Navigation = () => {
   const pages = user ? pagesAuthed : pagesGuest;
 
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

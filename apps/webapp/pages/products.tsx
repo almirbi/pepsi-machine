@@ -27,49 +27,45 @@ const Products = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <Grid justifyContent="center" width="100%">
-          {user?.role === ROLE.SELLER && (
-            <Grid item padding={0} md={4} justifyContent="center" sm={12}>
-              <Box display="flex" width="100%" justifyContent="center">
-                <AddProductForm
-                  onAdd={async () => {
-                    setProducts((await apiClient.get("/products")).data);
-                  }}
-                />
-              </Box>
-            </Grid>
-          )}
-          <Grid item width="100%" md={8} sm={12}>
+      <Grid justifyContent="center" width="100%">
+        {user?.role === ROLE.SELLER && (
+          <Grid item padding={0} md={4} justifyContent="center" sm={12}>
             <Box display="flex" width="100%" justifyContent="center">
-              <ProductList
-                onBuy={async (buyResult: BuyResult) => {
-                  setBuyResult(buyResult);
-                  setShowResult(true);
+              <AddProductForm
+                onAdd={async () => {
                   setProducts((await apiClient.get("/products")).data);
-                  setUser?.((await apiClient.get("/auth/me")).data);
                 }}
-                products={products}
-                setProducts={setProducts}
               />
             </Box>
           </Grid>
+        )}
+        <Grid item width="100%" md={8} sm={12}>
+          <Box display="flex" width="100%" justifyContent="center">
+            <ProductList
+              onBuy={async (buyResult: BuyResult) => {
+                setBuyResult(buyResult);
+                setShowResult(true);
+                setProducts((await apiClient.get("/products")).data);
+                setUser?.((await apiClient.get("/auth/me")).data);
+              }}
+              products={products}
+              setProducts={setProducts}
+            />
+          </Box>
         </Grid>
-        <Dialog open={showResult} onClose={() => setShowResult(false)}>
-          <DialogTitle>
-            you bought {buyResult?.product.productName}!
-          </DialogTitle>
+      </Grid>
+      <Dialog open={showResult} onClose={() => setShowResult(false)}>
+        <DialogTitle>you bought {buyResult?.product.productName}!</DialogTitle>
 
-          {buyResult && (
-            <Box p={3}>
-              <RupeeChange change={buyResult.change} />
-              <Typography mt={4}>
-                total spent: {buyResult.totalSpent / 100}
-              </Typography>
-            </Box>
-          )}
-        </Dialog>
-      </main>
+        {buyResult && (
+          <Box p={3}>
+            <RupeeChange change={buyResult.change} />
+            <Typography mt={4}>
+              total spent: {buyResult.totalSpent / 100}
+            </Typography>
+          </Box>
+        )}
+      </Dialog>
     </>
   );
 };
