@@ -1,6 +1,6 @@
 import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
-import { DocumentBuilder,SwaggerModule } from "@nestjs/swagger";
+import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import * as session from "express-session";
 import * as passport from "passport";
 
@@ -30,7 +30,6 @@ async function bootstrap() {
   );
 
   app.use(passport.initialize());
-  // todo check this
   app.use(passport.session());
   app.useGlobalPipes(new ValidationPipe());
 
@@ -38,9 +37,8 @@ async function bootstrap() {
     .setTitle("PEPSI Machine")
     .setDescription("PEPSI API docs")
     .setVersion("1.0")
-    .addBearerAuth()
-    .addBasicAuth()
     .build();
+
   const document = SwaggerModule.createDocument(app, config, {
     deepScanRoutes: true,
   });
