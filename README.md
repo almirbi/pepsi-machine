@@ -15,7 +15,7 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
   - `Prisma` as ORM
   - `PostgreSQL` + `Docker` for local database
 
-- `webapp`: Rupees! Supports the API. Insert your rupees and buy a product as a buyer or publish products as a seller.
+- `webapp`: Rupees! Supports the API. Insert your rupees into the PEPSI machine and buy a product as a buyer or put products into the machine as a seller.
   - `Next JS` + `React` components
   - `Material UI` as a design system
   - `Axios` as API client
