@@ -56,6 +56,7 @@ export const LoginForm = () => {
         <Button
           onClick={async () => {
             try {
+              setError(undefined);
               const { data: currentUser } = await apiClient.post<User>(
                 "/auth/login",
                 registerBody
@@ -63,7 +64,7 @@ export const LoginForm = () => {
 
               setUser?.(currentUser);
               router.push(
-                currentUser.role === ROLE.BUYER ? "/products" : "/deposit"
+                currentUser.role === ROLE.BUYER ? "/deposit" : "/products"
               );
             } catch (e) {
               setError(e as AxiosError);
