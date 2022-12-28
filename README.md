@@ -6,6 +6,21 @@
 
 This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. It includes the following packages/apps:
 
+### Apps and Packages
+
+- `api`: `NEST JS` API for managing users, products, deposit and buying/selling.
+
+  - `Passport.js` for auth
+  - `Swagger` for documentation
+  - `Prisma` as ORM
+  - `PostgreSQL` + `Docker` for local database
+
+- `webapp`: Rupees! Supports the API. Insert your rupees into the PEPSI machine and buy a product as a buyer or put products into the machine as a seller.
+  - `Next JS` + `React` components
+  - `Material UI` as a design system
+  - `Axios` as API client
+- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-prettier`)
+
 ## Getting started
 
 Prerequisites:
@@ -43,21 +58,6 @@ e.g.
 ```
 yarn workspace api add @types/node
 ```
-
-### Apps and Packages
-
-- `api`: `NEST JS` API for managing users, products, deposit and buying/selling.
-
-  - `Passport.js` for auth
-  - `Swagger` for documentation
-  - `Prisma` as ORM
-  - `PostgreSQL` + `Docker` for local database
-
-- `webapp`: Rupees! Supports the API. Insert your rupees into the PEPSI machine and buy a product as a buyer or put products into the machine as a seller.
-  - `Next JS` + `React` components
-  - `Material UI` as a design system
-  - `Axios` as API client
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-prettier`)
 
 ### Develop
 
