@@ -3,5 +3,6 @@ module.exports = {
   rules: {
     "import/no-duplicates": ["error", { considerQueryString: true }],
     "import/no-unresolved": "off",
+    "import/named": "off",
   },
 };
