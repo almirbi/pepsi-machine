@@ -12,8 +12,8 @@ export const DepositMeter = ({ amount, sx }: Props) => {
       sx={{ ml: 2, width: 100, ...sx }}
       label={
         <Box display="flex" alignItems="center">
-          <Typography>{amount}</Typography>
           <CurrencyRupee />
+          <Typography>{amount}</Typography>
         </Box>
       }
     />
