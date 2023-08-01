@@ -4,6 +4,8 @@
 
 ## What's inside?
 
+This is a showcase app with a buyer and seller roles. A seller can post products. A buyer can insert coins and spend them to buy the products. The result of the purchase returns the solution of a Coin Change problem.
+
 This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. It includes the following packages/apps:
 
 ### Apps and Packages
